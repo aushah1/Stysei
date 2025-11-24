@@ -36,7 +36,6 @@ body {
 
 .nav-div {
   background: var(--nav-div);
-  border-radius: 999px;
   padding: 0.5rem 1rem;
   transition: 0.3s ease;
   font-weight: 600;

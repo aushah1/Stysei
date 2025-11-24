@@ -1,21 +1,80 @@
-<nav class="flex items-center justify-between px-10 py-4 nav-bg">
-  <div class="profile flex items-center justify-center gap-8">
+<nav class="flex items-center justify-between px-6 py-4 nav-bg relative">
+  <!-- Profile -->
+  <div class="profile flex items-center gap-4">
     <img
-      class="w-14 rounded-md border border-[#dd8d9e]"
+      class="w-12 rounded-md border border-[#dd8d9e]"
       src="/images/profile.png"
       alt="" />
     <h3>ME</h3>
   </div>
-  <div class="links flex items-center justify-center gap-4">
+
+  <!-- Hamburger -->
+  <button id="menuBtn" class="md:hidden text-3xl">☰</button>
+
+  <!-- Desktop Links -->
+  <div class="hidden md:flex items-center gap-4">
     <a class="nav-div p-2 px-4 rounded-full" href="/home">Home</a>
     <a class="nav-div p-2 px-4 rounded-full" href="/tasks">Tasks</a>
     <a class="nav-div p-2 px-4 rounded-full" href="/timer">Timer</a>
     <a class="nav-div p-2 px-4 rounded-full" href="/board">Board</a>
     <a class="nav-div p-2 px-4 rounded-full" href="/notes">Notes</a>
   </div>
-  <div class="themes flex items-center justify-center">
-    <div class="w-10 h-10 bg-[#F4ACB7] rounded-full"></div>
-    <div class="w-10 h-10 bg-[#D9B99B] rounded-full"></div>
-    <div class="w-10 h-10 bg-[#CDB4DB] rounded-full"></div>
+
+  <!-- Desktop Themes -->
+  <div class="hidden md:flex items-center gap-3">
+    <div class="w-10 h-10 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
+    <div class="w-10 h-10 bg-[#D9B99B] rounded-full cursor-pointer"></div>
+    <div class="w-10 h-10 bg-[#CDB4DB] rounded-full cursor-pointer"></div>
+  </div>
+
+  <!-- Dropdown (Mobile) -->
+  <div
+    id="menu"
+    class="hidden z-10 flex flex-col items-center absolute right-4 top-16 w-56 py-4 rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300">
+    <a
+      class="w-fit text-center py-1 px-10 rounded-xl hover:bg-[#ffe8f0]"
+      href="/home"
+      >Home
+    </a>
+    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <a
+      class="w-fit text-center py-1 px-10 rounded-xl hover:bg-[#ffe8f0]"
+      href="/tasks"
+      >Tasks</a
+    >
+    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <a
+      class="w-fit text-center py-1 px-10 rounded-xl hover:bg-[#ffe8f0]"
+      href="/timer"
+      >Timer</a
+    >
+    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <a
+      class="w-fit text-center py-1 px-10 rounded-xl hover:bg-[#ffe8f0]"
+      href="/board"
+      >Board</a
+    >
+    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <a
+      class="w-fit text-center py-1 px-10 rounded-xl hover:bg-[#ffe8f0]"
+      href="/notes"
+      >Notes</a
+    >
+    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+
+    <div class="flex items-center justify-center gap-2 pt-3">
+      <div class="w-8 h-8 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
+      <div class="w-8 h-8 bg-[#D9B99B] rounded-full cursor-pointer"></div>
+      <div class="w-8 h-8 bg-[#CDB4DB] rounded-full cursor-pointer"></div>
+    </div>
   </div>
 </nav>
+
+<script>
+  const btn = document.getElementById("menuBtn");
+  const menu = document.getElementById("menu");
+
+  btn.addEventListener("click", () => {
+    menu.classList.toggle("hidden");
+  });
+</script>

@@ -11,32 +11,32 @@
     <%- include("partials/navbar") %>
 
     <div
-      class="hero w-full flex justify-center items-center relative first-bg h-[60vh]">
-      <h1 class="w-[80%] text-center text-8xl">
+      class="hero w-full flex justify-center items-center relative first-bg sm:h-[60vh] h-[50vh]">
+      <h1 class="w-[80%] text-center lg:text-8xl sm:text-5xl text-3xl">
         Small steps , big dreams. Every minute counts!
       </h1>
       <img
-        class="w-10 absolute top-[70%] left-[5%] rotate-[20deg]"
+        class="sm:w-10 w-8 absolute top-[70%] left-[5%] rotate-[20deg]"
         src="/images/book.png"
         alt="" />
       <img
-        class="w-20 absolute top-[70%] left-[88%] -rotate-45"
+        class="sm:w-20 w-16 absolute top-[70%] left-[80%] -rotate-45"
         src="/images/open-book.png"
         alt="" />
       <img
-        class="w-10 absolute top-[10%] left-[10%]"
+        class="sm:w-10 w-8 absolute top-[10%] left-[10%]"
         src="/images/star-p.png"
         alt="" />
       <img
-        class="w-10 absolute top-[10%] left-[60%]"
+        class="sm:w-10 w-8 absolute top-[10%] left-[60%]"
         src="/images/star-p.png"
         alt="" />
       <img
-        class="w-10 absolute top-[30%] left-[90%]"
+        class="sm:w-10 w-8 absolute top-[30%] left-[90%]"
         src="/images/star-p.png"
         alt="" />
       <img
-        class="w-10 absolute top-[80%] left-[50%]"
+        class="sm:w-10 w-8 absolute top-[80%] left-[50%]"
         src="/images/star-p.png"
         alt="" />
       <img
@@ -57,47 +57,55 @@
       <div
         class="total p-8 home-div rounded-md flex items-center justify-center shadow-[0_4px_10px_16px_rgba(255,255,255,0.25)]">
         <div
-          class="circle shadow-[0_4px_10px_10px_rgba(255,255,255,0.25)] p-10 flex flex-col items-center justify-start gap-10 w-[23rem] h-[23rem] rounded-full border-[12px] border-[#ed8ab8] second-bg">
-          <img class="h-28" src="/images/smile.png" alt="" />
-          <h3 class="text-8xl text">05:30</h3>
+          class="circle shadow-[0_4px_10px_10px_rgba(255,255,255,0.25)] p-10 flex flex-col items-center justify-start gap-10 md:w-[23rem] md:h-[23rem] sm:w-80 sm:h-80 w-60 h-60 rounded-full border-[12px] border-[#ed8ab8] second-bg">
+          <img class="sm:h-28 h-20" src="/images/smile.png" alt="" />
+          <h3 class="md:text-8xl sm:text-7xl text-5xl text">05:30</h3>
         </div>
       </div>
       <div class="last flex flex-col justify-center items-center gap-10">
         <div class="apps flex justify-center items-center gap-6">
           <div
-            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/tasks">
-              <img class="w-12 invert" src="/images/checklist.png" alt=""
+              <img
+                class="sm:w-12 w-8 invert"
+                src="/images/checklist.png"
+                alt=""
             /></a>
           </div>
           <div
-            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/timer"
-              ><img class="w-12 invert" src="/images/clock.png" alt=""
+              ><img class="sm:w-12 w-8 invert" src="/images/clock.png" alt=""
             /></a>
           </div>
           <div
-            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/board"
-              ><img class="w-12 invert" src="/images/board.png" alt=""
+              ><img class="sm:w-12 w-8 invert" src="/images/board.png" alt=""
             /></a>
           </div>
           <div
-            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/notes"
-              ><img class="w-12 invert" src="/images/write.png" alt=""
+              ><img class="sm:w-12 w-8 invert" src="/images/write.png" alt=""
             /></a>
           </div>
         </div>
         <div
-          class="time num text-9xl font-bold text relative flex gap-10 items-center justify-center">
+          class="time num text-4xl sm:text-7xl md:text-9xl font-bold text relative flex sm:gap-10 gap-6 items-center justify-center">
           <div class="hour home-div py-10 lg:px-6 md:px-4 px-6"></div>
           <div class="min home-div py-10 lg:px-6 md:px-4 px-6"></div>
           <div
-            class="sec mt-32 home-div text-lg py-4 lg:px-6 md:px-4 px-6"></div>
-          <div class="line w-[100%] h-2 absolute second-bg top-[55%]"></div>
-          <div class="absolute text-5xl -top-[10%] left-[28%]">TIME</div>
-          <div class="hout absolute text-2xl bottom-[2%] left-[33%]">HOUR</div>
+            class="sec sm:mt-32 mt-16 home-div text-lg sm:py-4 py-2 lg:px-6 md:px-4 px-6"></div>
+          <div
+            class="line sm:w-[81%] w-[69%] sm:h-2 h-1 absolute second-bg left-0 top-[50%] md:top-[55%]"></div>
+          <div class="absolute text-3xl md:text-5xl -top-[10%] left-[28%]">
+            TIME
+          </div>
+          <div class="hout absolute text-lg md:text-2xl bottom-[2%] left-[33%]">
+            HOUR
+          </div>
         </div>
       </div>
       <div class="calendar">
