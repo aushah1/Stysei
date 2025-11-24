@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+
+    <main>
+      <div
+        class="flex justify-center items-center flex-col first-bg py-10 timer">
+        <div class="flex justify-center gap-6 mb-10">
+          <input
+            type="number"
+            min="0"
+            id="inputHour"
+            placeholder="Hours"
+            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+
+          <input
+            type="number"
+            min="0"
+            max="59"
+            id="inputMin"
+            placeholder="Minutes"
+            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+        </div>
+
+        <div
+          class="num w-fit text-9xl font-bold text relative flex gap-10 items-center justify-center">
+          <div class="hour rounded-md div-bg py-10 lg:px-6 md:px-4 px-6">
+            00
+          </div>
+          <div class="min rounded-md div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
+          <div class="sec rounded-md div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
+
+          <div class="line w-[100%] h-2 absolute first-bg top-[52%]"></div>
+          <div class="text absolute text-5xl -top-[10%]">COUNTDOWN</div>
+
+          <div class="absolute text-2xl bottom-[2%] left-[27%]">HOUR</div>
+          <div class="absolute text-2xl bottom-[2%] left-[64%]">MIN</div>
+        </div>
+
+        <div class="btns flex items-center justify-center gap-6 mt-10">
+          <button
+            class="text font-bold text-xl py-4 px-8 flex play-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
+            Start
+          </button>
+
+          <button
+            class="text font-bold text-xl py-4 px-8 flex pause-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
+            Stop
+          </button>
+
+          <button
+            class="text font-bold text-xl py-4 px-8 flex reset-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
+            Reset
+          </button>
+        </div>
+      </div>
+      <div class="second second-bg py-10">
+        <!-- Clock Display -->
+        <div
+          class="alarm num text-9xl font-bold text relative flex gap-10 items-center justify-center">
+          <div class="hour div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
+          <div class="min div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
+
+          <div class="line w-[100%] h-2 absolute second-bg top-[55%]"></div>
+          <div class="text absolute text-5xl -top-[10%]">ALARM</div>
+          <div class="hout absolute text-2xl bottom-[2%]">HOUR</div>
+        </div>
+
+        <!-- Alarm Inputs -->
+        <div class="flex justify-center gap-6 mb-10 mt-10">
+          <input
+            type="number"
+            min="1"
+            max="12"
+            id="alarmHour"
+            placeholder="Hours"
+            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+
+          <input
+            type="number"
+            min="0"
+            max="59"
+            id="alarmMin"
+            placeholder="Minutes"
+            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+
+          <select
+            id="alarmPeriod"
+            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+        </div>
+
+        <!-- Alarm Button + Status -->
+        <div class="flex flex-col items-center gap-3">
+          <button
+            id="setAlarm"
+            class="bg-pink-400 text-white px-5 py-2 rounded active:scale-95 transition">
+            Set Alarm
+          </button>
+          <button
+            id="resetAlarm"
+            class="bg-gray-500 text-white px-4 py-2 rounded">
+            Reset
+          </button>
+
+          <button
+            id="stopAlarm"
+            class="bg-red-500 text-white px-5 py-2 rounded active:scale-95 transition hidden">
+            Stop Alarm
+          </button>
+
+          <p id="alarmStatus" class="text text-lg"></p>
+        </div>
+
+        <!-- Alarm Sound -->
+        <audio id="alarmSound">
+          <source src="/audio/alarm.wav" />
+        </audio>
+      </div>
+    </main>
+
+    <%- include("partials/footer") %>
+
+    <script>
+      /* ------------------ COUNTDOWN TIMER ------------------ */
+
+      const cdHour = document.querySelector(".num .hour");
+      const cdMin = document.querySelector(".num .min");
+      const cdSec = document.querySelector(".num .sec");
+
+      const playBtn = document.querySelector(".play-btn");
+      const pauseBtn = document.querySelector(".pause-btn");
+      const resetBtn = document.querySelector(".reset-btn");
+
+      const cdInputHour = document.getElementById("inputHour"); // countdown inputs
+      const cdInputMin = document.getElementById("inputMin");
+
+      let cdInterval = null;
+      let totalSeconds = 0;
+      let initialHours = 0;
+      let initialMinutes = 0;
+
+      function updateCountdownUI() {
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
+
+        cdHour.innerText = String(h).padStart(2, "0");
+        cdMin.innerText = String(m).padStart(2, "0");
+        cdSec.innerText = String(s).padStart(2, "0");
+      }
+
+      playBtn.addEventListener("click", () => {
+        initialHours = Number(cdInputHour.value) || 0;
+        initialMinutes = Number(cdInputMin.value) || 0;
+
+        if (!initialHours && !initialMinutes && totalSeconds === 0) {
+          alert("Enter time first");
+          return;
+        }
+
+        if (!totalSeconds) {
+          totalSeconds = initialHours * 3600 + initialMinutes * 60;
+        }
+
+        if (cdInterval) return;
+
+        cdInterval = setInterval(() => {
+          if (totalSeconds <= 0) {
+            clearInterval(cdInterval);
+            cdInterval = null;
+            return;
+          }
+          totalSeconds--;
+          updateCountdownUI();
+        }, 1000);
+      });
+
+      pauseBtn.addEventListener("click", () => {
+        clearInterval(cdInterval);
+        cdInterval = null;
+      });
+
+      resetBtn.addEventListener("click", () => {
+        clearInterval(cdInterval);
+        cdInterval = null;
+
+        totalSeconds = initialHours * 3600 + initialMinutes * 60;
+        updateCountdownUI();
+      });
+
+      /* ------------------ ALARM CLOCK ------------------ */
+
+      // alarm display boxes
+      const alarmHourBox = document.querySelector(".alarm .hour");
+      const alarmMinBox = document.querySelector(".alarm .min");
+
+      // alarm inputs (note these IDs must match your HTML: alarmHour, alarmMin, alarmPeriod)
+      const alarmHourInput = document.getElementById("alarmHour");
+      const alarmMinInput = document.getElementById("alarmMin");
+      const alarmPeriodInput = document.getElementById("alarmPeriod");
+
+      // alarm buttons/status
+      const setAlarmBtn = document.getElementById("setAlarm");
+      const stopAlarmBtn = document.getElementById("stopAlarm");
+      const resetAlarmBtn = document.getElementById("resetAlarm"); // ensure this button exists in HTML if you use it
+
+      // alarm audio
+      const alarmSound = new Audio("/audio/alarm.wav");
+      alarmSound.loop = true;
+      alarmSound.volume = 1;
+
+      let alarmTime = null; // stored as "H:MM AM" or "H:MM PM"
+
+      // live clock checker for alarm trigger
+      setInterval(() => {
+        const now = new Date();
+        let h = now.getHours();
+        const m = now.getMinutes();
+
+        const period = h >= 12 ? "PM" : "AM";
+        h = h % 12;
+        h = h === 0 ? 12 : h;
+
+        const current = `${h}:${String(m).padStart(2, "0")} ${period}`;
+
+        if (alarmTime && alarmTime === current) {
+          // start alarm
+          alarmSound.play().catch(() => {
+            // autoplay might be blocked in some browsers; ignore errors
+          });
+          stopAlarmBtn.classList.remove("hidden");
+        }
+      }, 1000);
+
+      // set alarm button
+      setAlarmBtn.addEventListener("click", () => {
+        const h = parseInt(alarmHourInput.value, 10);
+        const m = parseInt(alarmMinInput.value, 10);
+        const p = alarmPeriodInput.value;
+
+        if (Number.isNaN(h) || Number.isNaN(m) || !p) {
+          alert("Enter valid alarm time");
+          return;
+        }
+
+        // normalize hour (1-12)
+        let hourValue = h;
+        if (hourValue < 1) hourValue = 1;
+        if (hourValue > 12) hourValue = ((hourValue - 1) % 12) + 1;
+
+        alarmTime = `${hourValue}:${String(m).padStart(2, "0")} ${p}`;
+
+        // update alarm display boxes to show the set alarm (not live clock)
+        alarmHourBox.textContent = String(hourValue).padStart(2, "0");
+        alarmMinBox.textContent = String(m).padStart(2, "0");
+
+        // hide stop button in case it was visible
+        stopAlarmBtn.classList.add("hidden");
+      });
+
+      // stop alarm button: stop sound and disable the saved alarm so it won't restart
+      stopAlarmBtn.addEventListener("click", () => {
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+
+        alarmTime = null; // important: prevent re-triggering
+        stopAlarmBtn.classList.add("hidden");
+      });
+
+      // reset alarm button: clears alarm settings and inputs and display
+      if (resetAlarmBtn) {
+        resetAlarmBtn.addEventListener("click", () => {
+          alarmSound.pause();
+          alarmSound.currentTime = 0;
+
+          alarmTime = null;
+
+          alarmHourBox.textContent = "00";
+          alarmMinBox.textContent = "00";
+
+          alarmHourInput.value = "";
+          alarmMinInput.value = "";
+          alarmPeriodInput.value = "AM";
+
+          stopAlarmBtn.classList.add("hidden");
+        });
+      }
+    </script>
+  </body>
+</html>

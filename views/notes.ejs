@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+    <main class="min-h-[79.6vh] flex flex-col items-center gap-10 first-bg p-6">
+      <div class="btn flex w-full items-center justify-end">
+        <button
+          id="uploadBtn"
+          class="flex justify-center items-center w-14 h-14 div-bg rounded-full">
+          <img class="w-7" src="/images/plus.png" alt="" />
+        </button>
+        <input type="file" id="fileInput" class="hidden" />
+      </div>
+
+      <table
+        id="fileTable"
+        class="border-collapse border border-gray-400 rounded-md w-full">
+        <tr>
+          <th class="border border-gray-400 p-2">File</th>
+          <th class="border border-gray-400 p-2">Name</th>
+          <th class="border border-gray-400 p-2">Date</th>
+        </tr>
+      </table>
+    </main>
+    <%- include("partials/footer") %>
+    <script>
+      const uploadBtn = document.getElementById("uploadBtn");
+      const fileInput = document.getElementById("fileInput");
+      const fileTable = document.getElementById("fileTable");
+
+      uploadBtn.addEventListener("click", () => fileInput.click());
+
+      fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        const fileURL = URL.createObjectURL(file);
+        const date = new Date().toLocaleDateString();
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+    <td class="border border-gray-400 p-2 text-center">
+      <a class="flex items-center justify-center " href="${fileURL}" target="_blank">
+        <img src="/images/file.png" class="w-8 object-contain" />
+      </a>
+    </td>
+
+    <td class="border border-gray-400 p-2 text-center">
+      <a href="${fileURL}" target="_blank" class="font-lg">
+        ${file.name}
+      </a>
+    </td>
+
+    <td class="border border-gray-400 p-2 text-center">${date}</td>
+  `;
+
+        fileTable.appendChild(row);
+      });
+    </script>
+  </body>
+</html>

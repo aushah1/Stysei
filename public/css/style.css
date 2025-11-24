@@ -1,0 +1,189 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Caveat", cursive;
+}
+
+/* ------------------------------------------------ */
+/* COLOR PALETTE – Enhanced Baby Pink Theme */
+/* ------------------------------------------------ */
+:root {
+  --nav: #ffcfd8;
+  --nav-div: #ffb4d6;
+  --div-bg: #ffcbdd;
+  --first-bg: #ffe6f2;
+  --second-bg: #ffd9ec;
+  --home-div: #fecadc;
+  --text: #fc82aa;
+  --border-pink: #f2a1c4;
+}
+
+/* ------------------------------------------------ */
+/* NAVIGATION */
+/* ------------------------------------------------ */
+.nav-bg {
+  background: var(--nav);
+}
+
+.nav-div {
+  background: var(--nav-div);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  transition: 0.3s ease;
+  font-weight: 600;
+}
+
+.nav-div:hover {
+  background: #ff9bcb;
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------------ */
+/* BACKGROUNDS */
+/* ------------------------------------------------ */
+.first-bg {
+  background: linear-gradient(135deg, #ffe6f2, #ffd9ec);
+}
+
+.second-bg {
+  background: linear-gradient(135deg, #ffd9ec, #ffe6f2);
+}
+
+.div-bg {
+  background-color: var(--div-bg);
+}
+
+.home-div {
+  background: var(--home-div);
+  box-shadow: 0 4px 20px rgba(255, 175, 205, 0.35);
+}
+
+.text {
+  color: var(--text);
+}
+
+/* ------------------------------------------------ */
+/* CIRCLE CLOCK */
+/* ------------------------------------------------ */
+.circle {
+  box-shadow: 0 4px 20px rgba(255, 150, 200, 0.3);
+  border: 12px solid var(--border-pink);
+  border-radius: 50%;
+}
+
+/* ------------------------------------------------ */
+/* TIME SECTION */
+/* ------------------------------------------------ */
+.num {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(255, 150, 200, 0.5);
+}
+
+.time .hour,
+.time .min,
+.time .sec {
+  background: var(--home-div);
+  box-shadow: 0 4px 15px rgba(255, 140, 200, 0.25);
+  border-radius: 12px;
+}
+
+/* ------------------------------------------------ */
+/* ICON IMPROVEMENT */
+/* ------------------------------------------------ */
+.invert {
+  filter: brightness(0) saturate(100%) invert(20%) sepia(40%) saturate(300%)
+    hue-rotate(290deg) brightness(105%);
+}
+
+/* ------------------------------------------------ */
+/* PHOTO GRID */
+/* ------------------------------------------------ */
+.layout {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 150px;
+}
+
+.layout div {
+  background-position: center;
+  background-size: cover;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(255, 150, 200, 0.2);
+}
+
+/* Images */
+.layout div:nth-child(1) {
+  background-image: url("/images/img1.jpeg");
+}
+.layout div:nth-child(2) {
+  background-image: url("/images/img2.jpeg");
+}
+.layout div:nth-child(3) {
+  background-image: url("/images/img3.jpeg");
+}
+.layout div:nth-child(4) {
+  background-image: url("/images/img4.jpeg");
+}
+.layout div:nth-child(5) {
+  background-image: url("/images/img5.jpeg");
+}
+
+/* Desktop Grid */
+@media (min-width: 40rem) {
+  .layout {
+    width: 70%;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 180px;
+  }
+
+  .layout div:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .layout div:nth-child(2) {
+    grid-column: span 3;
+  }
+  .layout div:nth-child(3) {
+    grid-column: span 3;
+  }
+  .layout div:nth-child(4) {
+    grid-column: span 2;
+  }
+  .layout div:nth-child(5) {
+    grid-column: span 3;
+  }
+}
+
+/* ------------------------------------------------ */
+/* INPUTS (remove arrows) */
+/* ------------------------------------------------ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* ------------------------------------------------ */
+/* FOOTER */
+/* ------------------------------------------------ */
+footer {
+  background: var(--nav);
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 1px;
+}

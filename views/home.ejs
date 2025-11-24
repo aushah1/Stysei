@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+
+    <div
+      class="hero w-full flex justify-center items-center relative first-bg h-[60vh]">
+      <h1 class="w-[80%] text-center text-8xl">
+        Small steps , big dreams. Every minute counts!
+      </h1>
+      <img
+        class="w-10 absolute top-[70%] left-[5%] rotate-[20deg]"
+        src="/images/book.png"
+        alt="" />
+      <img
+        class="w-20 absolute top-[70%] left-[88%] -rotate-45"
+        src="/images/open-book.png"
+        alt="" />
+      <img
+        class="w-10 absolute top-[10%] left-[10%]"
+        src="/images/star-p.png"
+        alt="" />
+      <img
+        class="w-10 absolute top-[10%] left-[60%]"
+        src="/images/star-p.png"
+        alt="" />
+      <img
+        class="w-10 absolute top-[30%] left-[90%]"
+        src="/images/star-p.png"
+        alt="" />
+      <img
+        class="w-10 absolute top-[80%] left-[50%]"
+        src="/images/star-p.png"
+        alt="" />
+      <img
+        class="w-6 absolute top-[70%] left-[20%]"
+        src="/images/mini-str.png"
+        alt="" />
+      <img
+        class="w-6 absolute top-[5%] left-[80%]"
+        src="/images/mini-str.png"
+        alt="" />
+      <img
+        class="w-6 absolute top-[10%] left-[40%]"
+        src="/images/mini-str.png"
+        alt="" />
+    </div>
+    <main
+      class="grid lg:grid-cols-2 grid-cols-1 lg:gap-4 gap-20 px-6 py-10 place-items-center second-bg">
+      <div
+        class="total p-8 home-div rounded-md flex items-center justify-center shadow-[0_4px_10px_16px_rgba(255,255,255,0.25)]">
+        <div
+          class="circle shadow-[0_4px_10px_10px_rgba(255,255,255,0.25)] p-10 flex flex-col items-center justify-start gap-10 w-[23rem] h-[23rem] rounded-full border-[12px] border-[#ed8ab8] second-bg">
+          <img class="h-28" src="/images/smile.png" alt="" />
+          <h3 class="text-8xl text">05:30</h3>
+        </div>
+      </div>
+      <div class="last flex flex-col justify-center items-center gap-10">
+        <div class="apps flex justify-center items-center gap-6">
+          <div
+            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            <a href="/tasks">
+              <img class="w-12 invert" src="/images/checklist.png" alt=""
+            /></a>
+          </div>
+          <div
+            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            <a href="/timer"
+              ><img class="w-12 invert" src="/images/clock.png" alt=""
+            /></a>
+          </div>
+          <div
+            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            <a href="/board"
+              ><img class="w-12 invert" src="/images/board.png" alt=""
+            /></a>
+          </div>
+          <div
+            class="w-20 h-20 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            <a href="/notes"
+              ><img class="w-12 invert" src="/images/write.png" alt=""
+            /></a>
+          </div>
+        </div>
+        <div
+          class="time num text-9xl font-bold text relative flex gap-10 items-center justify-center">
+          <div class="hour home-div py-10 lg:px-6 md:px-4 px-6"></div>
+          <div class="min home-div py-10 lg:px-6 md:px-4 px-6"></div>
+          <div
+            class="sec mt-32 home-div text-lg py-4 lg:px-6 md:px-4 px-6"></div>
+          <div class="line w-[100%] h-2 absolute second-bg top-[55%]"></div>
+          <div class="absolute text-5xl -top-[10%] left-[28%]">TIME</div>
+          <div class="hout absolute text-2xl bottom-[2%] left-[33%]">HOUR</div>
+        </div>
+      </div>
+      <div class="calendar">
+        <img class="w-full" src="/images/calendar.png" alt="" />
+      </div>
+
+      <div class="layout">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </main>
+
+    <%- include("partials/footer") %>
+
+    <script>
+      let hr = document.querySelector(".time .hour");
+      let min = document.querySelector(".time .min");
+      let sec = document.querySelector(".time .sec");
+
+      function showTime() {
+        let now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+
+        hr.textContent = hours < 10 ? "0" + hours : hours;
+        min.textContent = minutes < 10 ? "0" + minutes : minutes;
+        sec.textContent = seconds < 10 ? "0" + seconds : seconds;
+      }
+
+      setInterval(showTime, 1000);
+      showTime();
+    </script>
+  </body>
+</html>

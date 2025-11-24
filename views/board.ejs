@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include("partials/navbar") %>
+    <main
+      class="w-full text min-h-[79.6vh] p-10 second-bg flex justify-center items-center">
+      <div class="relative min-w-[70%] min-h-[60vh]">
+        <textarea
+          name="text"
+          id="text"
+          class="board text-xl bg-[#ffd7e3] min-h-[60vh] w-full rounded-md p-6 pt-14 shadow-[0_3px_6px_6px_rgba(255,255,255,0.25)] focus:outline-none resize-none">
+        </textarea>
+        <h3 class="absolute w-full top-3 text-center text-4xl w-fit">
+          YOUR OWN SPACE
+        </h3>
+        <img
+          class="absolute w-32 -top-10 -left-14"
+          src="/images/rocket.png"
+          alt="rocket" />
+        <img
+          class="absolute w-24 -top-10 -right-10"
+          src="/images/butterfly.png"
+          alt="rocket" />
+        <img
+          class="absolute w-28 -bottom-10 -left-10"
+          src="/images/butterfly.png"
+          alt="rocket" />
+      </div>
+    </main>
+
+    <%- include("partials/footer") %>
+
+    <script>
+      const ta = document.getElementById("text");
+
+      ta.addEventListener("input", () => {
+        ta.style.height = "auto";
+        ta.style.height = ta.scrollHeight + "px";
+      });
+    </script>
+  </body>
+</html>
