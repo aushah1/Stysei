@@ -9,17 +9,20 @@
   </head>
   <body>
     <%- include("partials/navbar") %>
-    <main class="first-bg p-8 min-h-[80vh]">
+    <main class="first-bg md:p-8 p-4 min-h-[80vh]">
       <div
-        class="schedule relative text bg-[#ffd7e3] rounded-xl p-8 flex justify-start items-center flex-col gap-5 w-[80%] m-auto">
+        class="schedule relative text bg-[#ffd7e3] rounded-xl p-2 md:p-8 flex justify-start items-center flex-col gap-5 w-[98%] md:w-[80%] m-auto">
         <h2 class="text-5xl text-center font-bold">Daily Schedule</h2>
         <div
-          class="box flex justify-between items-center p-2 px-5 w-[90%] bg-[#] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
-          <input
-            class="bg-transparent w-full focus:outline-pink-500 p-2 font-bold text-xl"
-            type="text"
-            value="8:00 - 8:30 am (30min)" />
-          <p class="text-lg w-full">Wake up , freshen up , breakfast</p>
+          class="box flex justify-between items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
+          <div
+            class="flex flex-col lg:flex-row justify-between items-center w-[88%]">
+            <input
+              class="bg-transparent w-full focus:outline-pink-500 p-2 font-bold text-xl"
+              type="text"
+              value="8:00 - 8:30 am (30min)" />
+            <p class="text-lg w-full">Wake up , freshen up , breakfast</p>
+          </div>
 
           <input
             class="cursor-pointer"
@@ -28,29 +31,40 @@
             id="completed" />
         </div>
         <div
-          class="box flex justify-between items-center p-2 px-5 w-[90%] bg-[] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
-          <input
-            class="bg-transparent focus:outline-pink-500 p-2 font-bold text-xl"
-            type="text"
-            value="8:00 - 8:30 am (30min)" />
-          <p class="text-lg">Wake up , freshen up , breakfast</p>
-
-          <div class="right">
-            <input type="checkbox" name="completed" id="completed" />
+          class="box flex justify-between items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
+          <div
+            class="flex flex-col lg:flex-row justify-between items-center w-[88%]">
+            <input
+              class="bg-transparent w-full focus:outline-pink-500 p-2 font-bold text-xl"
+              type="text"
+              value="8:00 - 8:30 am (30min)" />
+            <p class="text-lg w-full">Wake up , freshen up , breakfast</p>
           </div>
+
+          <input
+            class="cursor-pointer"
+            type="checkbox"
+            name="completed"
+            id="completed" />
         </div>
         <div
-          class="box flex justify-between items-center p-2 px-5 w-[90%] bg-[] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
-          <input
-            class="bg-transparent focus:outline-pink-500 p-2 font-bold text-xl"
-            type="text"
-            value="8:00 - 8:30 am (30min)" />
-          <p class="text-lg">Wake up , freshen up , breakfast</p>
-
-          <div class="right">
-            <input type="checkbox" name="completed" id="completed" />
+          class="box flex justify-between items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
+          <div
+            class="flex flex-col lg:flex-row justify-between items-center w-[88%]">
+            <input
+              class="bg-transparent w-full focus:outline-pink-500 p-2 font-bold text-xl"
+              type="text"
+              value="8:00 - 8:30 am (30min)" />
+            <p class="text-lg w-full">Wake up , freshen up , breakfast</p>
           </div>
+
+          <input
+            class="cursor-pointer"
+            type="checkbox"
+            name="completed"
+            id="completed" />
         </div>
+
         <!-- <img
           class="w-20 -top-5 -left-5 absolute -rotate-[20deg]"
           src="/images/edit.png"

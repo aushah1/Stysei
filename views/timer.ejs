@@ -31,33 +31,40 @@
         </div>
 
         <div
-          class="num w-fit text-9xl font-bold text relative flex gap-10 items-center justify-center">
+          class="num w-fit text-4xl sm:text-7xl md:text-9xl font-bold text relative flex sm:gap-10 gap-6 items-center justify-center">
           <div class="hour rounded-md div-bg py-10 lg:px-6 md:px-4 px-6">
             00
           </div>
           <div class="min rounded-md div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
           <div class="sec rounded-md div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
 
-          <div class="line w-[100%] h-2 absolute first-bg top-[52%]"></div>
-          <div class="text absolute text-5xl -top-[10%]">COUNTDOWN</div>
+          <div
+            class="line sm:w-[81%] w-[69%] sm:h-2 h-1 absolute second-bg left-0 top-[50%] md:top-[55%]"></div>
+          <div class="text absolute text-3xl md:text-5xl -top-[10%]">
+            COUNTDOWN
+          </div>
 
-          <div class="absolute text-2xl bottom-[2%] left-[27%]">HOUR</div>
-          <div class="absolute text-2xl bottom-[2%] left-[64%]">MIN</div>
+          <div class="absolute text-lg md:text-2xl bottom-[2%] left-[27%]">
+            HOUR
+          </div>
+          <div class="absolute text-lg md:text-2xl bottom-[2%] left-[64%]">
+            MIN
+          </div>
         </div>
 
         <div class="btns flex items-center justify-center gap-6 mt-10">
           <button
-            class="text font-bold text-xl py-4 px-8 flex play-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
+            class="text font-bold md:text-xl text-lg md:py-4 py-2 md:px-8 px-6 flex play-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
             Start
           </button>
 
           <button
-            class="text font-bold text-xl py-4 px-8 flex pause-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
+            class="text font-bold md:text-xl text-lg md:py-4 py-2 md:px-8 px-6 flex pause-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
             Stop
           </button>
 
           <button
-            class="text font-bold text-xl py-4 px-8 flex reset-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
+            class="text font-bold md:text-xl text-lg md:py-4 py-2 md:px-8 px-6 flex reset-btn items-center justify-center div-bg rounded-full transition-transform duration-150 active:scale-95">
             Reset
           </button>
         </div>
@@ -65,24 +72,25 @@
       <div class="second second-bg py-10">
         <!-- Clock Display -->
         <div
-          class="alarm num text-9xl font-bold text relative flex gap-10 items-center justify-center">
+          class="alarm num text-4xl sm:text-7xl md:text-9xl font-bold text relative flex sm:gap-10 gap-6 items-center justify-center">
           <div class="hour div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
           <div class="min div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
 
-          <div class="line w-[100%] h-2 absolute second-bg top-[55%]"></div>
-          <div class="text absolute text-5xl -top-[10%]">ALARM</div>
-          <div class="hout absolute text-2xl bottom-[2%]">HOUR</div>
+          <div
+            class="line sm:w-[81%] w-[69%] sm:h-2 h-1 absolute second-bg left-0 top-[50%] md:top-[55%]"></div>
+          <div class="text absolute text-3xl md:text-5xl -top-[10%]">ALARM</div>
+          <div class="hout absolute text-lg md:text-2xl bottom-[2%]">HOUR</div>
         </div>
 
         <!-- Alarm Inputs -->
-        <div class="flex justify-center gap-6 mb-10 mt-10">
+        <div class="flex justify-center md:gap-6 gap-2 mb-10 mt-10">
           <input
             type="number"
             min="1"
             max="12"
             id="alarmHour"
             placeholder="Hours"
-            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+            class="div-bg focus:outline-pink-400 text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center" />
 
           <input
             type="number"
@@ -90,11 +98,11 @@
             max="59"
             id="alarmMin"
             placeholder="Minutes"
-            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+            class="div-bg focus:outline-pink-400 text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center" />
 
           <select
             id="alarmPeriod"
-            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center">
+            class="div-bg focus:outline-pink-400 text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center">
             <option value="AM">AM</option>
             <option value="PM">PM</option>
           </select>

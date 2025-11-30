@@ -13,9 +13,23 @@ body {
   font-family: "Caveat", cursive;
 }
 
-/* ------------------------------------------------ */
-/* COLOR PALETTE – Enhanced Baby Pink Theme */
-/* ------------------------------------------------ */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text);
+  border-radius: 10px;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #fd2180;
+}
+
 :root {
   --nav: #ffcfd8;
   --nav-div: #ffb4d6;

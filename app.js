@@ -27,6 +27,8 @@ app.get("/notes", (req, res) => {
   res.render("notes");
 });
 
+app.pos
+
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
