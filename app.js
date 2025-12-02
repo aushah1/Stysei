@@ -12,6 +12,7 @@ const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const fs = require("fs");
 const upload = require("./config/multerconfig");
+const isLoggedin = require("./middleware/isLoggedin");
 
 const app = express();
 const port = 3000;
@@ -26,20 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.use(cookieParser());
-
-const isLoggedin = (req, res, next) => {
-  if (!req.cookies.token) {
-    return res.redirect("/");
-  } else {
-    try {
-      let data = jwt.verify(req.cookies.token, "shhhhh");
-      req.user = data;
-      next();
-    } catch (err) {
-      res.redirect("/");
-    }
-  }
-};
+app.use(isLoggedin);
 
 // -------LOGIN/SIGNUP---------
 
@@ -84,6 +72,35 @@ app.post("/create", async (req, res) => {
     });
   });
 });
+
+//------------USER------------
+
+app.post(
+  "/user/edit/:id",
+  isLoggedin,
+  upload.single("profilePic"),
+  async (req, res) => {
+    try {
+      const { name, bio } = req.body;
+      let updateData = { name, bio };
+
+      if (req.file) {
+        updateData.profilePic = `/uploads/${req.file.filename}`;
+      }
+
+      await userModel.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: updateData },
+        { new: true }
+      );
+
+      res.redirect(req.get("referer"));
+    } catch (err) {
+      console.error(err);
+      res.redirect(req.get("referer"));
+    }
+  }
+);
 
 //-----------HOME-----------------
 
