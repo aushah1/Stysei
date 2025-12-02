@@ -7,18 +7,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
+
   <body>
     <%- include("partials/navbar") %>
+
     <main class="min-h-[79.6vh] flex flex-col items-center gap-10 first-bg p-6">
-      <div class="btn flex w-full items-center justify-end">
+      <!-- Upload Section -->
+      <div class="btn w-full flex items-center justify-end gap-3">
+        <!-- Upload Button -->
         <button
           id="uploadBtn"
           class="flex justify-center items-center w-14 h-14 div-bg rounded-full">
           <img class="w-7" src="/images/plus.png" alt="" />
         </button>
-        <input type="file" id="fileInput" class="hidden" />
+
+        <!-- Upload Form -->
+        <form
+          id="uploadForm"
+          action="/upload-note"
+          method="POST"
+          enctype="multipart/form-data"
+          class="flex items-center gap-3">
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter note name"
+            class="p-2 rounded-md text-black"
+            required />
+
+          <input type="file" name="note" id="fileInput" class="hidden" />
+        </form>
       </div>
 
+      <!-- Notes Table -->
       <table
         id="fileTable"
         class="border-collapse border border-gray-400 rounded-md w-full">
@@ -27,41 +48,67 @@
           <th class="border border-gray-400 p-2">Name</th>
           <th class="border border-gray-400 p-2">Date</th>
         </tr>
+
+        <% notes.forEach((note, idx) => { %>
+        <tr>
+          <td
+            class="border transition-all duration-500 ease-in-out icons border-gray-400 p-2 text-center flex justify-center gap-2 items-center">
+            <a class="" href="/<%=note.filePath%>" target="_blank">
+              <img src="/images/file.png" class="sm:w-6 w-5 object-contain" />
+            </a>
+            <img
+              src="/images/delete.png"
+              id="<%= note._id %> "
+              class="sm:w-4 w-3 cursor-pointer transition-all duration-500 ease-in-out object-contain opacity-0 delete" />
+          </td>
+
+          <td class="border border-gray-400 p-2 text-center">
+            <a href="/<%=note.filePath%>" target="_blank" class="font-lg">
+              <%= note.name %>
+            </a>
+          </td>
+
+          <td class="border border-gray-400 p-2 text-center">
+            <%= note.createdAt.toLocaleDateString() %>
+          </td>
+        </tr>
+        <% }) %>
       </table>
     </main>
+
     <%- include("partials/footer") %>
+
     <script>
       const uploadBtn = document.getElementById("uploadBtn");
       const fileInput = document.getElementById("fileInput");
-      const fileTable = document.getElementById("fileTable");
+      const uploadForm = document.getElementById("uploadForm");
+      const icons = document.querySelectorAll(".icons");
+      const deletes = document.querySelectorAll(".delete");
 
       uploadBtn.addEventListener("click", () => fileInput.click());
 
       fileInput.addEventListener("change", () => {
-        const file = fileInput.files[0];
-        if (!file) return;
+        if (fileInput.files.length > 0) {
+          uploadForm.submit();
+        }
+      });
+      icons.forEach((i, idx) => {
+        i.addEventListener("mouseenter", () => {
+          deletes[idx].classList.remove("opacity-0");
+        });
+        i.addEventListener("mouseleave", () => {
+          deletes[idx].classList.add("opacity-0");
+        });
+      });
+      deletes.forEach((del) => {
+        del.addEventListener("click", async (e) => {
+          let id = e.target.id;
 
-        const fileURL = URL.createObjectURL(file);
-        const date = new Date().toLocaleDateString();
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-    <td class="border border-gray-400 p-2 text-center">
-      <a class="flex items-center justify-center " href="${fileURL}" target="_blank">
-        <img src="/images/file.png" class="sm:w-8 w-5 object-contain" />
-      </a>
-    </td>
-
-    <td class="border border-gray-400 p-2 text-center">
-      <a href="${fileURL}" target="_blank" class="font-lg">
-        ${file.name}
-      </a>
-    </td>
-
-    <td class="border border-gray-400 p-2 text-center">${date}</td>
-  `;
-
-        fileTable.appendChild(row);
+          await fetch(`/notes-delete/${id}`, {
+            method: "POST",
+          });
+          location.reload();
+        });
       });
     </script>
   </body>

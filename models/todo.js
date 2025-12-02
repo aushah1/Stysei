@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const todoSchema = new mongoose.Schema(
   {
-    time: String,
-    description: String,
-    iscompleted: {
+    timing: String,
+    task: String,
+    isCompleted: {
       type: Boolean,
       default: false,
     },

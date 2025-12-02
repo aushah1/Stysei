@@ -15,11 +15,18 @@
         <textarea
           name="text"
           id="text"
-          class="board text-xl bg-[#ffd7e3] min-h-[69vh] w-full rounded-md p-6 pt-14 shadow-[0_3px_6px_6px_rgba(255,255,255,0.25)] focus:outline-none resize-none">
-        </textarea>
+          class="board text-2xl bg-[#ffd7e3] text-black min-h-[69vh] w-full rounded-md p-6 pt-14 shadow-[0_3px_6px_6px_rgba(255,255,255,0.25)] focus:outline-none resize-none">
+<%= boardText %></textarea
+        >
+
         <h3 class="absolute w-full top-3 text-center text-xl sm:text-4xl w-fit">
           YOUR OWN SPACE
         </h3>
+        <button
+          id="clear"
+          class="absolute top-3 right-[10%] bg-pink-400 text-white px-5 py-2 rounded active:scale-95 transition">
+          Clear
+        </button>
         <img
           class="absolute w-24 sm:w-32 -top-10 -left-6 sm:-left-14"
           src="/images/rocket.png"
@@ -39,10 +46,49 @@
 
     <script>
       const ta = document.getElementById("text");
+      const clearBtn = document.getElementById("clear");
 
+      // auto-resize
       ta.addEventListener("input", () => {
         ta.style.height = "auto";
         ta.style.height = ta.scrollHeight + "px";
+      });
+
+      // auto-save with fetch
+      let timeout;
+      ta.addEventListener("input", () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(async () => {
+          try {
+            await fetch("/board/save", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text: ta.value }),
+            });
+          } catch (err) {
+            console.error("Error saving board:", err);
+          }
+        }, 1000);
+      });
+
+      // clear button functionality
+      clearBtn.addEventListener("click", async () => {
+        ta.value = ""; // clear textarea
+        ta.style.height = "auto"; // reset height
+        ta.style.height = ta.scrollHeight + "px";
+
+        // save immediately
+        try {
+          await fetch("/board/save", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: "" }),
+          });
+        } catch (err) {
+          console.error("Error saving board:", err);
+        }
+
+        ta.focus(); // keep textarea active
       });
     </script>
   </body>
