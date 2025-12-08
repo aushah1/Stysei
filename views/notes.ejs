@@ -11,7 +11,8 @@
   <body>
     <%- include("partials/navbar") %>
 
-    <main class="min-h-[79.6vh] flex flex-col items-center gap-10 first-bg p-6">
+    <main
+      class="min-h-[81vh] flex flex-col items-center gap-10 first-bg sm:p-6 p-2">
       <!-- Upload Section -->
       <div class="btn w-full flex items-center justify-end gap-3">
         <!-- Upload Button -->
@@ -35,7 +36,7 @@
             class="p-2 rounded-md text-black"
             required />
 
-          <input type="file" name="note" id="fileInput" class="hidden" />
+          <input type="file" name="note" id="noteInput" class="hidden" />
         </form>
       </div>
 
@@ -51,24 +52,23 @@
 
         <% notes.forEach((note, idx) => { %>
         <tr>
-          <td
-            class="border transition-all duration-500 ease-in-out icons border-gray-400 p-2 text-center flex justify-center gap-2 items-center">
+          <td class="border border-gray-400 sm:px-2 px-0 py-2 text-center">
             <a class="" href="/<%=note.filePath%>" target="_blank">
               <img src="/images/file.png" class="sm:w-6 w-5 object-contain" />
             </a>
             <img
               src="/images/delete.png"
-              id="<%= note._id %> "
+              id="<%= note._id %>"
               class="sm:w-4 w-3 cursor-pointer transition-all duration-500 ease-in-out object-contain opacity-0 delete" />
           </td>
 
-          <td class="border border-gray-400 p-2 text-center">
+          <td class="border border-gray-400 sm:px-2 px-0 py-2 text-center">
             <a href="/<%=note.filePath%>" target="_blank" class="font-lg">
               <%= note.name %>
             </a>
           </td>
 
-          <td class="border border-gray-400 p-2 text-center">
+          <td class="border border-gray-400 sm:px-2 px-0 py-2 text-center">
             <%= note.createdAt.toLocaleDateString() %>
           </td>
         </tr>
@@ -80,18 +80,19 @@
 
     <script>
       const uploadBtn = document.getElementById("uploadBtn");
-      const fileInput = document.getElementById("fileInput");
+      const noteInput = document.getElementById("noteInput");
       const uploadForm = document.getElementById("uploadForm");
       const icons = document.querySelectorAll(".icons");
       const deletes = document.querySelectorAll(".delete");
 
-      uploadBtn.addEventListener("click", () => fileInput.click());
+      uploadBtn.addEventListener("click", () => noteInput.click());
 
-      fileInput.addEventListener("change", () => {
-        if (fileInput.files.length > 0) {
+      noteInput.addEventListener("change", () => {
+        if (noteInput.files.length > 0) {
           uploadForm.submit();
         }
       });
+
       icons.forEach((i, idx) => {
         i.addEventListener("mouseenter", () => {
           deletes[idx].classList.remove("opacity-0");
@@ -100,13 +101,11 @@
           deletes[idx].classList.add("opacity-0");
         });
       });
+
       deletes.forEach((del) => {
         del.addEventListener("click", async (e) => {
           let id = e.target.id;
-
-          await fetch(`/notes-delete/${id}`, {
-            method: "POST",
-          });
+          await fetch(`/notes-delete/${id}`, { method: "POST" });
           location.reload();
         });
       });

@@ -33,12 +33,16 @@ body {
 :root {
   --nav: #ffcfd8;
   --nav-div: #ffb4d6;
+  --nav-div-hover: #ffe8f0;
   --div-bg: #ffcbdd;
   --first-bg: #ffe6f2;
   --second-bg: #ffd9ec;
   --home-div: #fecadc;
   --text: #fc82aa;
   --border-pink: #f2a1c4;
+  --board: #ffd7e3;
+  --check-box: #fbcfe8;
+  --checked-check-box: #ec4899;
 }
 
 /* ------------------------------------------------ */
@@ -50,14 +54,10 @@ body {
 
 .nav-div {
   background: var(--nav-div);
-  padding: 0.5rem 1rem;
-  transition: 0.3s ease;
-  font-weight: 600;
 }
 
-.nav-div:hover {
-  background: #ff9bcb;
-  transform: translateY(-2px);
+.hover-nav-div:hover {
+  background: var(--nav-div-hover);
 }
 
 /* ------------------------------------------------ */
@@ -199,4 +199,20 @@ footer {
   color: var(--text);
   font-weight: 600;
   letter-spacing: 1px;
+}
+
+.btn-bg {
+  background-color: #e18aaa;
+}
+
+.check-box {
+  background-color: var(--check-box);
+}
+
+.checked-check-box:checked {
+  background-color: var(--checked-check-box);
+}
+
+.board-div {
+  background-color: var(--board);
 }

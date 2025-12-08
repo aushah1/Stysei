@@ -10,12 +10,12 @@
   <body>
     <%- include("partials/navbar") %>
     <main
-      class="w-full text min-h-[81vh] p-4 sm:p-10 second-bg flex justify-center items-center">
+      class="w-full text min-h-[81vh] px-4 py-16 sm:px-10 second-bg flex justify-center items-center">
       <div class="relative w-[98%] md:w-[70%]">
         <textarea
           name="text"
           id="text"
-          class="board text-2xl bg-[#ffd7e3] text-black min-h-[69vh] w-full rounded-md p-6 pt-14 shadow-[0_3px_6px_6px_rgba(255,255,255,0.25)] focus:outline-none resize-none">
+          class="board-div text-2xl text-black min-h-[69vh] w-full rounded-md p-6 pt-14 shadow-[0_3px_6px_6px_rgba(255,255,255,0.25)] focus:outline-none resize-none">
 <%= boardText %></textarea
         >
 
@@ -24,7 +24,7 @@
         </h3>
         <button
           id="clear"
-          class="absolute top-3 right-[10%] bg-pink-400 text-white px-5 py-2 rounded active:scale-95 transition">
+          class="absolute -top-12 right-[10%] btn-bg text-white px-5 py-2 rounded active:scale-95 transition">
           Clear
         </button>
         <img

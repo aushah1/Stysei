@@ -27,20 +27,20 @@
             type="text" />
         </div>
         <input
-          class="bg-pink-400 cursor-pointer text-white px-5 py-2 rounded active:scale-95 transition"
+          class="btn-bg cursor-pointer text-white px-5 py-2 rounded active:scale-95 transition"
           type="submit"
           value="Submit" />
       </form>
 
       <div
-        class="schedule text bg-[#ffd7e3] rounded-xl p-2 md:p-8 flex justify-start items-center flex-col gap-5 w-[98%] md:w-[80%] m-auto">
+        class="schedule text board-div rounded-xl p-2 md:p-8 flex justify-start items-center flex-col gap-5 w-[98%] md:w-[80%] m-auto">
         <h2 class="text-5xl text-center font-bold">Daily Schedule</h2>
 
         <% tasks.forEach(task => {%>
         <div
-          class="box relative flex justify-between items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
+          class="box relative flex justify-between gap-3 items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
           <div
-            class="flex flex-col lg:flex-row justify-between items-center w-[86%]">
+            class="flex flex-col lg:flex-row justify-between items-center w-[80%]">
             <div
               class="bg-transparent w-full focus:outline-pink-500 p-2 font-bold text-xl">
               <%= task.timing %>
@@ -52,25 +52,25 @@
           </div>
 
           <input class="task-check relative w-6 h-6 rounded-full appearance-none
-          border-2 border-pink-400 bg-pink-200 checked:bg-pink-500
-          cursor-pointer" type="checkbox" name="status" id="<%= task._id %>" <%=
+          border-2 border-pink-400 check-box checked-check-box cursor-pointer"
+          type="checkbox" name="status" id="<%= task._id %>" <%=
           task.isCompleted ? "checked" : "" %>/>
           <img class="w-5 more cursor-pointer" src="/images/more.png" alt="" />
           <div
             class="extra hidden z-20 py-2 px-3 flex flex-col justify-center items-center gap-2 bg-white rounded-xl absolute -bottom-20 right-6">
             <h5
               id="<%= task._id %>"
-              class="px-6 edit py-2 rounded-3xl hover:bg-[#ffe8f0] cursor-pointer">
+              class="px-6 edit py-2 rounded-3xl hover-nav-div cursor-pointer">
               Edit
             </h5>
             <h5
               id="<%= task._id %>"
-              class="px-6 delete py-2 rounded-3xl hover:bg-[#ffe8f0] cursor-pointer">
+              class="px-6 delete py-2 rounded-3xl hover-nav-div cursor-pointer">
               Delete
             </h5>
           </div>
           <div
-            class="edit-box w-[60%] z-20 hidden p-4 rounded-xl second-bg flex gap-2 absolute -bottom-20 left-2">
+            class="edit-box sm:w-[60%] w-full z-20 hidden p-4 rounded-xl second-bg flex gap-2 absolute -bottom-20 left-2">
             <form
               class="flex gap-2 items-center justify-center"
               action="/tasks/edit/<%=task._id%>"
@@ -88,7 +88,7 @@
                 type="text"
                 value="<%= task.task %>" />
               <input
-                class="w-8 h-8 flex-shrink-0 rounded-full bg-[#ffd7e3] flex justify-center items-center cursor-pointer"
+                class="w-8 h-8 text-white flex-shrink-0 rounded-full nav-div flex justify-center items-center cursor-pointer"
                 type="submit"
                 value="✔" />
             </form>
@@ -140,6 +140,18 @@
 
           editBox.classList.toggle("hidden");
         });
+      });
+      document.addEventListener("click", (e) => {
+        let clickedInsideBox = e.target.closest(".box");
+
+        if (!clickedInsideBox) {
+          document
+            .querySelectorAll(".extra")
+            .forEach((extra) => extra.classList.add("hidden"));
+          document
+            .querySelectorAll(".edit-box")
+            .forEach((editBox) => editBox.classList.add("hidden"));
+        }
       });
     </script>
   </body>

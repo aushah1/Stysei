@@ -9,12 +9,12 @@
   </head>
   <body>
     <main
-      class="flex first-bg md:flex-row flex-col justify-center items-center md:gap-24 lg:p-20 gap-8 p-10">
+      class="flex first-bg min-h-screen md:flex-row flex-col justify-center items-center md:gap-24 lg:p-20 gap-8 p-10">
       <form
-        class="login py-16 md:w-full md:max-w-[490px] min-h-[496px] w-[80%] rounded-xl div-bg px-6 flex flex-col justify-center items-center gap-4"
+        class="login py-16 md:w-full md:max-w-[490px] min-h-[496px] sm:w-[80%] w-[98%] rounded-xl div-bg px-6 flex flex-col justify-center items-center gap-4"
         action="/login"
         method="post">
-        <h2 class="text-7xl font-bold mb-8">LOGIN</h2>
+        <h2 class="sm:text-7xl text-5xl font-bold mb-8">LOGIN</h2>
 
         <input
           class="px-3 py-2 rounded-xl w-[80%]"
@@ -27,15 +27,15 @@
           name="password"
           placeholder="Password" />
         <input
-          class="mt-8 cursor-pointer px-5 py-2 text-2xl bg-[#e18aaa] rounded-2xl"
+          class="mt-8 cursor-pointer px-5 py-2 text-2xl btn-bg rounded-2xl"
           type="submit"
           value="Submit" />
       </form>
       <form
-        class="signup py-16 md:w-full md:max-w-[490px] w-[80%] rounded-xl div-bg px-6 flex flex-col justify-center items-center gap-4"
+        class="signup py-16 md:w-full md:max-w-[490px] sm:w-[80%] w-[98%] rounded-xl div-bg px-6 flex flex-col justify-center items-center gap-4"
         action="/create"
         method="post">
-        <h2 class="text-7xl font-bold mb-8">SIGNUP</h2>
+        <h2 class="sm:text-7xl text-5xl font-bold mb-8">SIGNUP</h2>
         <input
           class="px-3 py-2 rounded-xl w-[80%]"
           type="text"
@@ -52,7 +52,7 @@
           name="password"
           placeholder="Password" />
         <input
-          class="mt-8 cursor-pointer px-5 py-2 text-2xl bg-[#e18aaa] rounded-2xl"
+          class="mt-8 cursor-pointer px-5 py-2 text-2xl btn-bg rounded-2xl"
           type="submit"
           value="Submit" />
       </form>

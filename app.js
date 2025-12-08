@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 app.use(cookieParser());
-app.use(isLoggedin);
 
 // -------LOGIN/SIGNUP---------
 
@@ -72,6 +71,8 @@ app.post("/create", async (req, res) => {
     });
   });
 });
+
+app.use(isLoggedin);
 
 //------------USER------------
 
