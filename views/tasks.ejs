@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
+  <body class="text">
     <%- include("partials/navbar") %>
     <main class="first-bg md:p-8 p-4 min-h-[80vh]">
       <form
@@ -18,12 +18,12 @@
           <input
             placeholder="Enter the Timing eg: 8:00 - 8:40"
             name="timing"
-            class="bg-transparent rounded-2xl w-full border border-pink-300 focus:outline-pink-500 p-2"
+            class="input bg-transparent rounded-2xl w-full 0 p-2"
             type="text" />
           <input
             placeholder="Enter the Task eg: Study"
             name="task"
-            class="bg-transparent rounded-2xl w-full border border-pink-300 focus:outline-pink-500 p-2"
+            class="input bg-transparent rounded-2xl w-full 0 p-2"
             type="text" />
         </div>
         <input
@@ -38,11 +38,10 @@
 
         <% tasks.forEach(task => {%>
         <div
-          class="box relative flex justify-between gap-3 items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9] shadow-[0_0px_9px_4px_rgba(254,96,191,0.26)]">
+          class="task-box relative flex justify-between gap-3 items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9]">
           <div
             class="flex flex-col lg:flex-row justify-between items-center w-[80%]">
-            <div
-              class="bg-transparent w-full focus:outline-pink-500 p-2 font-bold text-xl">
+            <div class="bg-transparent w-full 0 p-2 font-bold text-xl">
               <%= task.timing %>
             </div>
             <p
@@ -52,7 +51,7 @@
           </div>
 
           <input class="task-check relative w-6 h-6 rounded-full appearance-none
-          border-2 border-pink-400 check-box checked-check-box cursor-pointer"
+          border-2 border-white check-box checked-check-box cursor-pointer"
           type="checkbox" name="status" id="<%= task._id %>" <%=
           task.isCompleted ? "checked" : "" %>/>
           <img class="w-5 more cursor-pointer" src="/images/more.png" alt="" />
@@ -78,13 +77,13 @@
               <input
                 placeholder="Enter the Timing eg: 8:00 - 8:40"
                 name="timing"
-                class="bg-transparent rounded-2xl w-full border border-pink-300 focus:outline-pink-500 p-2"
+                class="input bg-transparent rounded-2xl w-full 0 p-2"
                 type="text"
                 value="<%= task.timing %>" />
               <input
                 placeholder="Enter the Task eg: Study"
                 name="task"
-                class="bg-transparent rounded-2xl w-full border border-pink-300 focus:outline-pink-500 p-2"
+                class="input bg-transparent rounded-2xl w-full 0 p-2"
                 type="text"
                 value="<%= task.task %>" />
               <input

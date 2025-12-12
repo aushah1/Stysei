@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
+  <body class="text">
     <%- include("partials/navbar") %>
 
     <main>
@@ -19,7 +19,7 @@
             min="0"
             id="inputHour"
             placeholder="Hours"
-            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+            class="div-bg input text text-xl px-4 py-2 rounded w-28 text-center" />
 
           <input
             type="number"
@@ -27,7 +27,7 @@
             max="59"
             id="inputMin"
             placeholder="Minutes"
-            class="div-bg focus:outline-pink-400 text text-xl px-4 py-2 rounded w-28 text-center" />
+            class="div-bg input text text-xl px-4 py-2 rounded w-28 text-center" />
         </div>
 
         <div
@@ -39,7 +39,7 @@
           <div class="sec rounded-md div-bg py-10 lg:px-6 md:px-4 px-6">00</div>
 
           <div
-            class="line sm:w-[81%] w-[69%] sm:h-2 h-1 absolute second-bg left-0 top-[50%] md:top-[55%]"></div>
+            class="line sm:w-[100%] w-[69%] sm:h-2 h-1 absolute second-bg left-0 top-[50%] md:top-[55%]"></div>
           <div class="text absolute text-3xl md:text-5xl -top-[10%]">
             COUNTDOWN
           </div>
@@ -90,7 +90,7 @@
             max="12"
             id="alarmHour"
             placeholder="Hours"
-            class="div-bg focus:outline-pink-400 text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center" />
+            class="div-bg input text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center" />
 
           <input
             type="number"
@@ -98,11 +98,11 @@
             max="59"
             id="alarmMin"
             placeholder="Minutes"
-            class="div-bg focus:outline-pink-400 text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center" />
+            class="div-bg input text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center" />
 
           <select
             id="alarmPeriod"
-            class="div-bg focus:outline-pink-400 text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center">
+            class="div-bg text md:text-xl text-lg md:px-4 px-2 md:py-2 py-1 rounded sm:w-28 w-20 text-center">
             <option value="AM">AM</option>
             <option value="PM">PM</option>
           </select>

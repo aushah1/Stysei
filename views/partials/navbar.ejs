@@ -7,7 +7,7 @@
         class="profile-img w-14 h-14 rounded-xl border-2 border-pink-300 object-cover"
         src="<%= user.profilePic %>"
         alt="" />
-      <h3 class="font-semibold text-lg text-pink-700"><%= user.name %></h3>
+      <h3 class="font-semibold text-lg"><%= user.name %></h3>
     </div>
 
     <!-- Dropdown -->
@@ -25,14 +25,14 @@
         <input class="w-[76%] hidden text-sm" type="file" name="profilePic" />
       </div>
 
-      <div class="w-full h-[2px] bg-pink-300 rounded-full"></div>
+      <div class="w-full h-[2px] border-bg rounded-full"></div>
 
       <div class="flex flex-col items-center w-full">
         <span class="text-sm text-gray-500 flex items-center gap-1">
           Name
         </span>
         <input
-          class="text-center w-full bg-pink-50 rounded-lg py-1 text-pink-700 font-medium"
+          class="text-center input w-full nav-div rounded-lg py-1 text font-medium"
           type="text"
           name="name"
           disabled
@@ -42,14 +42,14 @@
       <div class="flex flex-col items-center w-full">
         <span class="text-sm text-gray-500 flex items-center gap-1"> Bio </span>
         <input
-          class="w-full text-center bg-pink-50 rounded-lg py-1 text-pink-700 font-medium"
+          class="w-full text-center input nav-div rounded-lg py-1 text font-medium"
           type="text"
           value="<%= user.bio %>"
           name="bio"
           disabled />
       </div>
       <input
-        class="update-btn hidden bg-pink-500 cursor-pointer text-white py-2 px-6 rounded-xl shadow-md hover:bg-pink-600 hover:shadow-lg transition-all duration-200"
+        class="update-btn hidden btn-bg cursor-pointer text-white py-2 px-6 rounded-xl shadow-mdhover:shadow-lg transition-all duration-200"
         type="submit"
         value="Update" />
     </form>
@@ -89,9 +89,17 @@
 
   <!-- Desktop Themes -->
   <div class="hidden md:flex items-center gap-3">
-    <div class="w-10 h-10 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
-    <div class="w-10 h-10 bg-[#D9B99B] rounded-full cursor-pointer"></div>
-    <div class="w-10 h-10 bg-[#CDB4DB] rounded-full cursor-pointer"></div>
+    <div
+      data-theme="pink"
+      class="theme w-10 border border-white h-10 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
+
+    <div
+      data-theme="brown"
+      class="theme w-10 border border-white h-10 bg-[#D9B99B] rounded-full cursor-pointer"></div>
+
+    <div
+      data-theme="dark"
+      class="theme w-10 border border-white h-10 bg-[#000000] rounded-full cursor-pointer"></div>
   </div>
 
   <!-- Dropdown (Mobile) -->
@@ -103,36 +111,42 @@
       href="/home"
       >Home
     </a>
-    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <div class="line h-[2px] w-[80%] border-bg mb-2"></div>
     <a
       class="w-fit text-center py-1 px-10 rounded-xl hover-nav-div"
       href="/tasks"
       >Tasks</a
     >
-    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <div class="line h-[2px] w-[80%] border-bg mb-2"></div>
     <a
       class="w-fit text-center py-1 px-10 rounded-xl hover-nav-div"
       href="/timer"
       >Timer</a
     >
-    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <div class="line h-[2px] w-[80%] border-bg mb-2"></div>
     <a
       class="w-fit text-center py-1 px-10 rounded-xl hover-nav-div"
       href="/board"
       >Board</a
     >
-    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <div class="line h-[2px] w-[80%] border-bg mb-2"></div>
     <a
       class="w-fit text-center py-1 px-10 rounded-xl hover-nav-div"
       href="/notes"
       >Notes</a
     >
-    <div class="line h-[2px] w-[80%] bg-pink-400 mb-2"></div>
+    <div class="line h-[2px] w-[80%] border-bg mb-2"></div>
 
     <div class="flex items-center justify-center gap-2 pt-3">
-      <div class="w-8 h-8 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
-      <div class="w-8 h-8 bg-[#D9B99B] rounded-full cursor-pointer"></div>
-      <div class="w-8 h-8 bg-[#CDB4DB] rounded-full cursor-pointer"></div>
+      <div
+        data-theme="pink"
+        class="theme w-8 h-8 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
+      <div
+        data-theme="brown"
+        class="theme w-8 h-8 bg-[#D9B99B] rounded-full cursor-pointer"></div>
+      <div
+        data-theme="dark"
+        class="theme w-8 h-8 bg-[#000000] rounded-full cursor-pointer"></div>
     </div>
   </div>
 </nav>
@@ -163,4 +177,82 @@
     bioInput.disabled = false;
     updateBtn.classList.remove("hidden");
   };
+
+  // THEMES
+  const themes = {
+    pink: {
+      "--nav": "#ffcfd8",
+      "--nav-div": "#ffb4d6",
+      "--nav-div-hover": "#ffe8f0",
+      "--div-bg": "#ffcbdd",
+      "--first-bg": "#ffe6f2",
+      "--second-bg": "#ffd9ec",
+      "--home-div": "#fecadc",
+      "--text": "#fc82aa",
+      "--border": "#f2a1c4",
+      "--board": "#ffd7e3",
+      "--check-box": "#fbcfe8",
+      "--checked-check-box": "#ec4899",
+      "--btn-bg": "#e18aaa",
+    },
+
+    brown: {
+      "--nav": "#ddb892",
+      "--nav-div": "#edc4b3",
+      "--nav-div-hover": "#ffe8f0",
+      "--div-bg": "#deab90",
+      "--first-bg": "#e6ccb2",
+      "--second-bg": "#ebd6c1",
+      "--home-div": "#deab90",
+      "--text": "#582f0e",
+      "--border": "#582f0e",
+      "--board": "#ffe9d7",
+      "--check-box": "#f2cfb5",
+      "--checked-check-box": "#582f0e",
+      "--btn-bg": "#694e3c",
+    },
+
+    dark: {
+      "--nav": "#000000",
+      "--nav-div": "#262626",
+      "--div-bg": "#323232",
+      "--first-bg": "#151515",
+      "--second-bg": "#111111",
+      "--home-div": "#323232",
+      "--text": "#ffffff",
+      "--border": "#929292",
+      "--board": "#515151",
+      "--check-box": "#828282",
+      "--checked-check-box": "#171717",
+      "--btn-bg": "#464646",
+    },
+  };
+
+  // APPLY THEME ON CLICK
+  const themeBtns = document.querySelectorAll(".theme");
+
+  themeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const themeName = btn.getAttribute("data-theme");
+      const selectedTheme = themes[themeName];
+
+      for (let key in selectedTheme) {
+        document.documentElement.style.setProperty(key, selectedTheme[key]);
+      }
+
+      // Save theme
+      localStorage.setItem("theme", themeName);
+    });
+  });
+
+  // LOAD SAVED THEME ON PAGE LOAD
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme && themes[savedTheme]) {
+    const selectedTheme = themes[savedTheme];
+
+    for (let key in selectedTheme) {
+      document.documentElement.style.setProperty(key, selectedTheme[key]);
+    }
+  }
 </script>

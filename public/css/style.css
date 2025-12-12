@@ -31,18 +31,29 @@ body {
 }
 
 :root {
-  --nav: #ffcfd8;
-  --nav-div: #ffb4d6;
+  --nav: #ddb892;
+  --nav-div: #edc4b3;
   --nav-div-hover: #ffe8f0;
-  --div-bg: #ffcbdd;
-  --first-bg: #ffe6f2;
-  --second-bg: #ffd9ec;
-  --home-div: #fecadc;
-  --text: #fc82aa;
-  --border-pink: #f2a1c4;
-  --board: #ffd7e3;
-  --check-box: #fbcfe8;
-  --checked-check-box: #ec4899;
+  --div-bg: #deab90;
+  --first-bg: #e6ccb2;
+  --second-bg: #ebd6c1;
+  --home-div: #deab90;
+  --text: #582f0e;
+  --border: #582f0e;
+  --board: #ffe9d7;
+  --check-box: #f2cfb5;
+  --checked-check-box: #582f0e;
+  --btn-bg: #694e3c;
+}
+
+.input {
+  border: 1px solid var(--check-box);
+  outline: 1px solid var(--check-box);
+}
+
+.input:focus {
+  border: 1px solid var(--border);
+  outline: 1px solid var(--border);
 }
 
 /* ------------------------------------------------ */
@@ -50,6 +61,9 @@ body {
 /* ------------------------------------------------ */
 .nav-bg {
   background: var(--nav);
+}
+.border-bg {
+  background-color: var(--border);
 }
 
 .nav-div {
@@ -60,15 +74,22 @@ body {
   background: var(--nav-div-hover);
 }
 
+.task-box {
+  border: 1px solid var(--border);
+  box-shadow: 0px 0px 10px var(--border);
+}
+
 /* ------------------------------------------------ */
 /* BACKGROUNDS */
 /* ------------------------------------------------ */
 .first-bg {
-  background: linear-gradient(135deg, #ffe6f2, #ffd9ec);
+  /* background: linear-gradient(135deg, #ffe6f2, #ffd9ec); */
+  background-color: var(--first-bg);
 }
 
 .second-bg {
-  background: linear-gradient(135deg, #ffd9ec, #ffe6f2);
+  /* background: linear-gradient(135deg, #ffd9ec, #ffe6f2); */
+  background-color: var(--second-bg);
 }
 
 .div-bg {
@@ -89,7 +110,7 @@ body {
 /* ------------------------------------------------ */
 .circle {
   box-shadow: 0 4px 20px rgba(255, 150, 200, 0.3);
-  border: 12px solid var(--border-pink);
+  border: 12px solid var(--border);
   border-radius: 50%;
 }
 
@@ -202,7 +223,7 @@ footer {
 }
 
 .btn-bg {
-  background-color: #e18aaa;
+  background-color: var(--btn-bg);
 }
 
 .check-box {
