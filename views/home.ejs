@@ -65,35 +65,44 @@
       <div class="last flex flex-col justify-center items-center gap-10">
         <div class="apps flex justify-center items-center gap-6">
           <div
-            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="app sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/tasks">
               <img
-                class="sm:w-12 w-8 invert"
+                class="icon sm:w-12 w-8 invert"
                 src="/images/checklist.png"
                 alt=""
             /></a>
           </div>
           <div
-            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="app sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/timer"
-              ><img class="sm:w-12 w-8 invert" src="/images/clock.png" alt=""
+              ><img
+                class="icon sm:w-12 w-8 invert"
+                src="/images/clock.png"
+                alt=""
             /></a>
           </div>
           <div
-            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="app sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/board"
-              ><img class="sm:w-12 w-8 invert" src="/images/board.png" alt=""
+              ><img
+                class="icon sm:w-12 w-8 invert"
+                src="/images/board.png"
+                alt=""
             /></a>
           </div>
           <div
-            class="sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
+            class="app sm:w-20 sm:h-20 w-14 h-14 flex items-center justify-center cursor-pointer home-div rounded-full shadow-md">
             <a href="/notes"
-              ><img class="sm:w-12 w-8 invert" src="/images/write.png" alt=""
+              ><img
+                class="icon sm:w-12 w-8 invert"
+                src="/images/write.png"
+                alt=""
             /></a>
           </div>
         </div>
         <div
-          class="time num text-4xl sm:text-7xl md:text-9xl font-bold text relative flex sm:gap-10 gap-6 items-center justify-center">
+          class="time num text-4xl sm:text-7xl md:text-9xl font-bold text-dark relative flex sm:gap-10 gap-6 items-center justify-center">
           <div class="hour home-div py-10 lg:px-6 md:px-4 px-6"></div>
           <div class="min home-div py-10 lg:px-6 md:px-4 px-6"></div>
           <div
@@ -141,6 +150,16 @@
 
       setInterval(showTime, 1000);
       showTime();
+      const isDarkTheme = localStorage.getItem("theme") === "dark";
+      const icons = document.querySelectorAll(".icon");
+
+      icons.forEach((icon) => {
+        if (isDarkTheme) {
+          icon.classList.remove("invert");
+        } else {
+          icon.classList.add("invert");
+        }
+      });
     </script>
   </body>
 </html>

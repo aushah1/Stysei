@@ -33,12 +33,13 @@ body {
 :root {
   --nav: #ddb892;
   --nav-div: #edc4b3;
-  --nav-div-hover: #ffe8f0;
-  --div-bg: #deab90;
+  --nav-div-hover: #fff6e8;
+  --div-bg: #f4bd9f;
   --first-bg: #e6ccb2;
   --second-bg: #ebd6c1;
   --home-div: #deab90;
-  --text: #582f0e;
+  --text-dark: #582f0e;
+  --text-light: #fafffb;
   --border: #582f0e;
   --board: #ffe9d7;
   --check-box: #f2cfb5;
@@ -236,4 +237,8 @@ footer {
 
 .board-div {
   background-color: var(--board);
+}
+
+.text-light {
+  color: var(--text-light);
 }

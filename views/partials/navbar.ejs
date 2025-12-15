@@ -12,7 +12,7 @@
 
     <!-- Dropdown -->
     <form
-      class="full-info opacity-0 z-20 absolute mt-3 left-0 w-56 bg-white shadow-lg rounded-2xl p-5 flex flex-col items-center gap-3 transition-all duration-300 pointer-events-none"
+      class="full-info opacity-0 z-20 absolute mt-3 left-0 w-56 second-bg border border-white shadow-lg rounded-2xl p-5 flex flex-col items-center gap-3 transition-all duration-300 pointer-events-none"
       action="/user/edit/<%=user._id%>"
       enctype="multipart/form-data"
       method="post">
@@ -32,7 +32,7 @@
           Name
         </span>
         <input
-          class="text-center input w-full nav-div rounded-lg py-1 text font-medium"
+          class="text-center input w-full nav-div rounded-lg py-1 text-dark font-medium"
           type="text"
           name="name"
           disabled
@@ -42,7 +42,7 @@
       <div class="flex flex-col items-center w-full">
         <span class="text-sm text-gray-500 flex items-center gap-1"> Bio </span>
         <input
-          class="w-full text-center input nav-div rounded-lg py-1 text font-medium"
+          class="w-full text-center input nav-div rounded-lg py-1 text-dark font-medium"
           type="text"
           value="<%= user.bio %>"
           name="bio"
@@ -105,7 +105,7 @@
   <!-- Dropdown (Mobile) -->
   <div
     id="menu"
-    class="hidden z-10 flex flex-col items-center absolute right-4 top-16 w-56 py-4 rounded-xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300">
+    class="hidden z-10 flex flex-col items-center absolute right-4 top-16 w-56 py-4 rounded-xl second-bg shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 border border-white">
     <a
       class="w-fit text-center py-1 px-10 rounded-xl hover-nav-div"
       href="/home"
@@ -140,13 +140,13 @@
     <div class="flex items-center justify-center gap-2 pt-3">
       <div
         data-theme="pink"
-        class="theme w-8 h-8 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
+        class="theme border border-white w-8 h-8 bg-[#F4ACB7] rounded-full cursor-pointer"></div>
       <div
         data-theme="brown"
-        class="theme w-8 h-8 bg-[#D9B99B] rounded-full cursor-pointer"></div>
+        class="theme border border-white w-8 h-8 bg-[#D9B99B] rounded-full cursor-pointer"></div>
       <div
         data-theme="dark"
-        class="theme w-8 h-8 bg-[#000000] rounded-full cursor-pointer"></div>
+        class="theme border border-white w-8 h-8 bg-[#000000] rounded-full cursor-pointer"></div>
     </div>
   </div>
 </nav>
@@ -162,11 +162,13 @@
   const nameInput = document.querySelector('input[name="name"]');
   const bioInput = document.querySelector('input[name="bio"]');
 
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
     menu.classList.toggle("hidden");
   });
 
-  profile.addEventListener("click", () => {
+  profile.addEventListener("click", (e) => {
+    e.stopPropagation();
     info.classList.toggle("opacity-0");
     info.classList.toggle("pointer-events-none");
   });
@@ -177,7 +179,11 @@
     bioInput.disabled = false;
     updateBtn.classList.remove("hidden");
   };
-
+  document.body.addEventListener("click", () => {
+    menu.classList.add("hidden");
+    info.classList.add("opacity-0");
+    info.classList.add("pointer-events-none");
+  });
   // THEMES
   const themes = {
     pink: {
@@ -199,7 +205,7 @@
     brown: {
       "--nav": "#ddb892",
       "--nav-div": "#edc4b3",
-      "--nav-div-hover": "#ffe8f0",
+      "--nav-div-hover": "#fff6e8",
       "--div-bg": "#deab90",
       "--first-bg": "#e6ccb2",
       "--second-bg": "#ebd6c1",
@@ -215,6 +221,7 @@
     dark: {
       "--nav": "#000000",
       "--nav-div": "#262626",
+      "--nav-div-hover": "#676767",
       "--div-bg": "#323232",
       "--first-bg": "#151515",
       "--second-bg": "#111111",
