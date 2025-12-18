@@ -6,7 +6,7 @@ module.exports = async function isLoggedin(req, res, next) {
     return res.redirect("/");
   } else {
     try {
-      const data = jwt.verify(req.cookies.token, "shhhhh");
+      const data = jwt.verify(req.cookies.token, process.env.SECRET);
       const fullUser = await userModel.findById(data._id).lean();
 
       req.user = fullUser;

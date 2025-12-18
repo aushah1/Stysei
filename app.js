@@ -14,11 +14,12 @@ const fs = require("fs");
 const upload = require("./config/multerconfig");
 const isLoggedin = require("./middleware/isLoggedin");
 
+require("dotenv").config();
 const app = express();
 const port = 3000;
 
 mongoose
-  .connect("mongodb://localhost:27017/Study")
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ Connection error:", err));
 
@@ -43,7 +44,7 @@ app.post("/login", async (req, res) => {
 
   bcrypt.compare(password, user.password, function (err, result) {
     if (result) {
-      const token = jwt.sign({ email, _id: user._id }, "shhhhh");
+      const token = jwt.sign({ email, _id: user._id }, process.env.SECRET);
       res.cookie("token", token);
       return res.redirect("/home");
     }
@@ -65,7 +66,7 @@ app.post("/create", async (req, res) => {
         email,
         password: hash,
       });
-      const token = jwt.sign({ email, _id: user._id }, "shhhhh");
+      const token = jwt.sign({ email, _id: user._id }, process.env.SECRET);
       res.cookie("token", token);
       res.redirect("/home");
     });
