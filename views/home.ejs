@@ -7,11 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body class="text">
+  <body>
     <%- include("partials/navbar") %>
 
     <div
-      class="hero w-full flex justify-center items-center relative first-bg sm:h-[60vh] h-[50vh]">
+      class="hero text-dark w-full flex justify-center items-center relative first-bg sm:h-[60vh] h-[50vh]">
       <h1 class="w-[80%] text-center lg:text-8xl sm:text-5xl text-3xl">
         Small steps , big dreams. Every minute counts!
       </h1>
@@ -53,13 +53,17 @@
         alt="" />
     </div>
     <main
-      class="grid lg:grid-cols-2 grid-cols-1 lg:gap-4 gap-20 px-6 py-10 place-items-center second-bg">
+      class="grid text-dark lg:grid-cols-2 grid-cols-1 lg:gap-4 gap-20 px-6 py-10 place-items-center second-bg">
       <div
         class="total p-8 home-div rounded-md flex items-center justify-center shadow-[0_4px_10px_16px_rgba(255,255,255,0.25)]">
         <div
           class="circle shadow-[0_4px_10px_10px_rgba(255,255,255,0.25)] p-10 flex flex-col items-center justify-start gap-10 md:w-[23rem] md:h-[23rem] sm:w-80 sm:h-80 w-60 h-60 rounded-full border-[12px] second-bg">
-          <img class="sm:h-28 h-20" src="/images/smile.png" alt="" />
-          <h3 class="md:text-8xl sm:text-7xl text-5xl text">05:30</h3>
+          <h5 class="md:text-6xl sm:text-5xl text-3xl text-dark text-center">
+            Total Time
+          </h5>
+          <h3 id="totalTime" class="md:text-8xl sm:text-7xl text-5xl text-dark">
+            00:00
+          </h3>
         </div>
       </div>
       <div class="last flex flex-col justify-center items-center gap-10">
@@ -117,16 +121,56 @@
           </div>
         </div>
       </div>
-      <div class="calendar">
-        <img class="w-full" src="/images/calendar.png" alt="" />
+      <div class="calendar text-light home-div p-6 rounded-md w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl">Important Dates</h3>
+          <button
+            id="toggleForm"
+            class="second-bg px-3 py-1 rounded-md text-sm">
+            + Add
+          </button>
+        </div>
+
+        <!-- hidden form -->
+        <div id="dateForm" class="flex flex-col gap-2 mb-4 hidden">
+          <input
+            type="date"
+            id="impDate"
+            class="p-1 text-sm rounded-md text-black" />
+          <textarea
+            id="impText"
+            rows="2"
+            placeholder="Short note..."
+            class="p-1 text-sm rounded-md text-black resize-none"></textarea>
+          <button
+            id="saveDate"
+            class="second-bg px-3 py-1 text-sm rounded-md self-start">
+            Save
+          </button>
+        </div>
+
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b">
+              <th class="py-2">Date</th>
+              <th class="py-2">Note</th>
+            </tr>
+          </thead>
+          <tbody id="dateTable"></tbody>
+        </table>
       </div>
 
       <div class="layout">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <% user.images.forEach((img, i) => { %>
+        <div
+          class="image-wrapper"
+          data-index="<%= i %>"
+          style="background-image: url('<%= img %>')">
+          <div class="edit-btn">
+            <img src="/images/edit-image.png" class="w-6 h-6 invert" />
+          </div>
+        </div>
+        <% }) %>
       </div>
     </main>
 
@@ -159,6 +203,107 @@
         } else {
           icon.classList.add("invert");
         }
+      });
+      document.querySelectorAll(".edit-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const wrapper = btn.closest(".image-wrapper");
+          const index = wrapper.dataset.index;
+          const fileInput = document.createElement("input");
+          fileInput.type = "file";
+          fileInput.accept = "image/*";
+          fileInput.click();
+
+          fileInput.onchange = async () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append("image", file);
+            formData.append("index", index);
+
+            const res = await fetch("/update-image", {
+              method: "POST",
+              body: formData,
+            });
+            const data = await res.json();
+
+            if (data.success) {
+              wrapper.style.backgroundImage = `url('${data.imageUrl}')`;
+            }
+          };
+        });
+      });
+      const totalTimeEl = document.getElementById("totalTime");
+
+      // get saved total time (in ms)
+      let totalTime = parseInt(localStorage.getItem("totalTime")) || 0;
+
+      // start time of current session
+      let lastTick = Date.now();
+
+      setInterval(() => {
+        const now = Date.now();
+        const diff = now - lastTick;
+        lastTick = now;
+
+        totalTime += diff;
+
+        // save continuously (this is the key fix)
+        localStorage.setItem("totalTime", totalTime);
+
+        const totalSeconds = Math.floor(totalTime / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        totalTimeEl.textContent =
+          `${minutes < 10 ? "0" : ""}${minutes}:` +
+          `${seconds < 10 ? "0" : ""}${seconds}`;
+      }, 1000);
+      const dateInput = document.getElementById("impDate");
+      const textInput = document.getElementById("impText");
+      const saveBtn = document.getElementById("saveDate");
+      const tableBody = document.getElementById("dateTable");
+
+      let importantDates =
+        JSON.parse(localStorage.getItem("importantDates")) || [];
+
+      function renderDates() {
+        tableBody.innerHTML = "";
+        importantDates.forEach((item) => {
+          const row = document.createElement("tr");
+          row.classList.add("border-b");
+
+          row.innerHTML = `
+        <td class="py-2">${item.date}</td>
+        <td class="py-2">${item.text}</td>
+      `;
+          tableBody.appendChild(row);
+        });
+      }
+
+      saveBtn.addEventListener("click", () => {
+        if (!dateInput.value || !textInput.value) return;
+
+        importantDates.push({
+          date: dateInput.value,
+          text: textInput.value,
+        });
+
+        localStorage.setItem("importantDates", JSON.stringify(importantDates));
+
+        dateInput.value = "";
+        textInput.value = "";
+
+        form.classList.add("hidden");
+        renderDates();
+      });
+
+      renderDates();
+      const toggleBtn = document.getElementById("toggleForm");
+      const form = document.getElementById("dateForm");
+
+      toggleBtn.addEventListener("click", () => {
+        form.classList.toggle("hidden");
       });
     </script>
   </body>

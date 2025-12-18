@@ -3,93 +3,1294 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Board</title>
+    <title>Professional Drawing Board</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style></style>
   </head>
   <body>
     <%- include("partials/navbar") %>
-    <main
-      class="w-full text-dark min-h-[81vh] px-4 py-16 sm:px-10 second-bg flex justify-center items-center">
-      <div class="relative w-[98%] md:w-[70%]">
-        <textarea
-          name="text"
-          id="text"
-          class="home-div text-2xl min-h-[69vh] w-full rounded-md p-6 pt-14 shadow-[0_3px_6px_6px_rgba(255,255,255,0.25)] focus:outline-none resize-none">
-            <%= boardText %></textarea
-        >
+    <main class="first-bg min-h-[80vh] md:p-8 p-4 text-dark">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-6">
+          <h1 class="text-2xl md:text-3xl font-bold">Drawing Board</h1>
+          <p class="mt-1">
+            Professional drawing tool with real-time collaboration
+          </p>
+        </div>
 
-        <h3
-          class="absolute text w-full top-3 text-center text-xl sm:text-4xl w-fit">
-          YOUR OWN SPACE
-        </h3>
-        <button
-          id="clear"
-          class="absolute -top-12 right-[10%] btn-bg text-white px-5 py-2 rounded active:scale-95 transition">
-          Clear
-        </button>
-        <img
-          class="absolute w-24 sm:w-32 -top-10 -left-6 sm:-left-14"
-          src="/images/rocket.png"
-          alt="rocket" />
-        <img
-          class="absolute w-16 sm:w-24 sm:-top-10 -top-6 -right-4 sm:-right-10"
-          src="/images/butterfly.png"
-          alt="rocket" />
-        <img
-          class="absolute w-16 sm:w-28 -bottom-10 -left-5 sm:-left-10"
-          src="/images/butterfly.png"
-          alt="rocket" />
+        <div class="flex flex-col lg:flex-row gap-6">
+          <!-- Left Sidebar - Tools -->
+          <div class="lg:w-80 space-y-6">
+            <!-- Toolbox -->
+            <div class="home-div rounded-xl p-5">
+              <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                <i class="fas fa-tools text-dark"></i>
+                <span>Tools</span>
+              </h3>
+
+              <div class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-3 gap-3">
+                <button
+                  id="pen-tool"
+                  class="tool-btn tool-active h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Pen">
+                  <i class="fas fa-pen text-lg text-dark"></i>
+                  <span class="text-xs font-medium text-dark">Pen</span>
+                </button>
+
+                <button
+                  id="laser-tool"
+                  class="tool-btn h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Laser Pointer">
+                  <i class="fas fa-bolt text-lg text-dark"></i>
+                  <span class="text-xs font-medium text-dark">Laser</span>
+                </button>
+
+                <button
+                  id="eraser-tool"
+                  class="tool-btn h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Eraser">
+                  <i class="fas fa-eraser text-lg text-dark"></i>
+                  <span class="text-xs font-medium text-dark">Eraser</span>
+                </button>
+
+                <button
+                  id="line-tool"
+                  class="tool-btn h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Line">
+                  <i class="fas fa-slash text-lg text-dark"></i>
+                  <span class="text-xs font-medium text-dark">Line</span>
+                </button>
+
+                <button
+                  id="rect-tool"
+                  class="tool-btn h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Rectangle">
+                  <i class="far fa-square text-lg text-dark"></i>
+                  <span class="text-xs text-dark font-medium">Rect</span>
+                </button>
+
+                <button
+                  id="circle-tool"
+                  class="tool-btn h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Circle">
+                  <i class="far fa-circle text-lg text-dark"></i>
+                  <span class="text-xs font-medium text-dark">Circle</span>
+                </button>
+
+                <button
+                  id="triangle-tool"
+                  class="tool-btn h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Triangle">
+                  <i class="fas fa-play text-lg rotate-90 text-dark"></i>
+                  <span class="text-xs font-medium text-dark">Triangle</span>
+                </button>
+
+                <button
+                  id="text-tool"
+                  class="tool-btn h-14 rounded-lg flex flex-col items-center justify-center gap-1 transition-all hover:scale-105"
+                  title="Add Text">
+                  <i class="fas fa-font text-lg text-dark"></i>
+                  <span class="text-xs font-medium text-dark">Text</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Color Palette -->
+            <div class="home-div rounded-xl p-5">
+              <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                <i class="fas fa-palette text-dark"></i>
+                <span>Colors</span>
+              </h3>
+
+              <div class="grid grid-cols-5 gap-3">
+                <button
+                  class="color-btn color-active w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #ffffff"
+                  data-color="#ffffff"
+                  title="White"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #ef4444"
+                  data-color="#ef4444"
+                  title="Red"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #3b82f6"
+                  data-color="#3b82f6"
+                  title="Blue"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #10b981"
+                  data-color="#10b981"
+                  title="Green"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #8b5cf6"
+                  data-color="#8b5cf6"
+                  title="Purple"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #f59e0b"
+                  data-color="#f59e0b"
+                  title="Orange"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #06b6d4"
+                  data-color="#06b6d4"
+                  title="Cyan"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #ec4899"
+                  data-color="#ec4899"
+                  title="Pink"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="background-color: #78716c"
+                  data-color="#78716c"
+                  title="Gray"></button>
+                <button
+                  class="color-btn w-9 h-9 rounded-full transition-all hover:scale-110"
+                  style="
+                    background-color: #000000;
+                    border: 2px solid var(--border);
+                  "
+                  data-color="#000000"
+                  title="Black"></button>
+              </div>
+
+              <div class="mt-6">
+                <div class="flex items-center justify-between mb-2">
+                  <label class="text-sm font-medium">Brush Size</label>
+                  <span id="brush-size-value" class="text-sm font-semibold"
+                    >3px</span
+                  >
+                </div>
+                <input
+                  type="range"
+                  id="brush-size"
+                  min="1"
+                  max="40"
+                  value="3"
+                  class="w-full" />
+              </div>
+            </div>
+
+            <!-- Board Settings -->
+            <div class="home-div rounded-xl p-5">
+              <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                <i class="fas fa-sliders-h text"></i>
+                <span>Board Settings</span>
+              </h3>
+
+              <div class="space-y-4">
+                <div>
+                  <label class="text-sm font-medium block mb-2"
+                    >Board Color</label
+                  >
+                  <div class="flex gap-2 flex-wrap">
+                    <button
+                      id="board-color-dark"
+                      class="board-color-btn board-color-active w-8 h-8 rounded-lg transition-all"
+                      style="background-color: var(--board)"
+                      data-color="var(--board)"
+                      title="Theme Color"></button>
+                    <button
+                      id="board-color-black"
+                      class="board-color-btn w-8 h-8 rounded-lg transition-all"
+                      style="background-color: #000000"
+                      data-color="#000000"
+                      title="Black"></button>
+                    <button
+                      id="board-color-white"
+                      class="board-color-btn w-8 h-8 rounded-lg transition-all"
+                      style="background-color: #ffffff"
+                      data-color="#ffffff"
+                      title="White"></button>
+                    <button
+                      id="board-color-brown"
+                      class="board-color-btn w-8 h-8 rounded-lg transition-all"
+                      style="background-color: #5c4033"
+                      data-color="#5c4033"
+                      title="Brown"></button>
+                    <button
+                      id="board-color-pink"
+                      class="board-color-btn w-8 h-8 rounded-lg transition-all"
+                      style="background-color: #ffd7e3"
+                      data-color="#ffd7e3"
+                      title="Pink"></button>
+                    <button
+                      id="board-color-blue"
+                      class="board-color-btn w-8 h-8 rounded-lg transition-all"
+                      style="background-color: #1e3a8a"
+                      data-color="#1e3a8a"
+                      title="Blue"></button>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-600">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-sm font-medium">Laser Style</span>
+                    <div class="flex items-center gap-2">
+                      <span
+                        id="laser-duration-value"
+                        class="text-sm font-semibold"
+                        >2s</span
+                      >
+                      <span
+                        id="laser-intensity-value"
+                        class="text-sm font-semibold"
+                        >Normal</span
+                      >
+                    </div>
+                  </div>
+                  <div class="space-y-4">
+                    <div>
+                      <label class="text-xs mb-1 block">Duration</label>
+                      <input
+                        type="range"
+                        id="laser-duration"
+                        min="0.5"
+                        max="5"
+                        step="0.5"
+                        value="2"
+                        class="w-full" />
+                    </div>
+                    <div>
+                      <label class="text-xs mb-1 block">Intensity</label>
+                      <input
+                        type="range"
+                        id="laser-intensity"
+                        min="1"
+                        max="3"
+                        step="1"
+                        value="2"
+                        class="w-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Canvas Area -->
+          <div class="flex-1">
+            <div class="home-div rounded-xl p-4 mb-4">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                  <div
+                    class="bg-black/30 px-4 py-2 rounded-lg border border-gray-600">
+                    <span class="text-sm text-gray-300">Tool:</span>
+                    <span id="active-tool-name" class="ml-2 font-semibold"
+                      >Pen</span
+                    >
+                    <span class="mx-3 text-gray-600">|</span>
+                    <span class="text-sm text-gray-300">Color:</span>
+                    <span
+                      id="active-color"
+                      class="ml-2 w-4 h-4 inline-block rounded-full align-middle border border-gray-600"
+                      style="background-color: #ffffff"></span>
+                  </div>
+
+                  <div class="flex gap-2">
+                    <button
+                      id="undo-btn"
+                      class="bg-black/30 px-4 py-2 rounded-lg border border-gray-600 hover:bg-black/50 transition flex items-center gap-2"
+                      title="Undo (Ctrl+Z)">
+                      <i class="fas fa-undo text-dark"></i>
+                      <span class="text-sm hidden sm:inline text-white"
+                        >Undo</span
+                      >
+                    </button>
+                    <button
+                      id="redo-btn"
+                      class="bg-black/30 px-4 py-2 rounded-lg border border-gray-600 hover:bg-black/50 transition flex items-center gap-2"
+                      title="Redo (Ctrl+Y)">
+                      <i class="fas fa-redo text-dark"></i>
+                      <span class="text-sm hidden sm:inline text-white"
+                        >Redo</span
+                      >
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  id="clear-btn"
+                  class="btn-primary text-white px-6 py-2.5 rounded-lg font-medium transition flex items-center gap-2">
+                  <i class="fas fa-trash-alt text-dark"></i>
+                  <span>Clear Board</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Canvas Container -->
+            <div
+              class="relative rounded-xl overflow-hidden shadow-2xl canvas-container"
+              style="height: 70vh">
+              <canvas
+                id="drawing-canvas"
+                class="absolute top-0 left-0 w-full h-full cursor-pen"></canvas>
+              <canvas
+                id="temp-canvas"
+                class="absolute top-0 left-0 w-full h-full pointer-events-none"></canvas>
+
+              <!-- Text Input Overlay -->
+              <div
+                id="text-input-container"
+                class="absolute hidden z-50"
+                style="transform: translate(-50%, -100%)">
+                <div
+                  class="bg-gray-800 rounded-lg shadow-xl border border-gray-600 p-4">
+                  <textarea
+                    id="text-input"
+                    class="w-64 h-24 p-3 bg-gray-900 border border-gray-600 rounded-lg focus:ring-2 focus:ring-white focus:border-transparent resize-none text-white"
+                    placeholder="Type your text here..."></textarea>
+                  <div class="flex gap-2 mt-3">
+                    <button
+                      id="text-confirm"
+                      class="btn-primary px-4 py-2 rounded-lg text-sm font-medium flex-1">
+                      Add Text
+                    </button>
+                    <button
+                      id="text-cancel"
+                      class="bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-600 transition">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Canvas Border -->
+              <div
+                class="absolute inset-0 border border-gray-600 pointer-events-none rounded-xl"></div>
+            </div>
+
+            <!-- Status Bar -->
+            <div
+              class="mt-4 text-sm text-gray-400 flex justify-between items-center">
+              <div class="flex items-center gap-4">
+                <span id="cursor-position">X: 0, Y: 0</span>
+                <span id="canvas-size" class="hidden sm:inline"></span>
+              </div>
+              <div class="text-right">
+                <span id="drawing-status">Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
     <%- include("partials/footer") %>
 
     <script>
-      const ta = document.getElementById("text");
-      const clearBtn = document.getElementById("clear");
+      // Canvas setup
+      const canvas = document.getElementById("drawing-canvas");
+      const tempCanvas = document.getElementById("temp-canvas");
+      const ctx = canvas.getContext("2d");
+      const tempCtx = tempCanvas.getContext("2d");
 
-      // auto-resize
-      ta.addEventListener("input", () => {
-        ta.style.height = "auto";
-        ta.style.height = ta.scrollHeight + "px";
-      });
+      // Tool elements
+      const toolButtons = document.querySelectorAll(".tool-btn");
+      const colorButtons = document.querySelectorAll(".color-btn");
+      const boardColorButtons = document.querySelectorAll(".board-color-btn");
+      const clearBtn = document.getElementById("clear-btn");
+      const undoBtn = document.getElementById("undo-btn");
+      const redoBtn = document.getElementById("redo-btn");
+      const brushSizeSlider = document.getElementById("brush-size");
+      const brushSizeValue = document.getElementById("brush-size-value");
+      const activeToolName = document.getElementById("active-tool-name");
+      const activeColorDisplay = document.getElementById("active-color");
+      const laserDurationSlider = document.getElementById("laser-duration");
+      const laserDurationValue = document.getElementById(
+        "laser-duration-value"
+      );
+      const laserIntensitySlider = document.getElementById("laser-intensity");
+      const laserIntensityValue = document.getElementById(
+        "laser-intensity-value"
+      );
+      const cursorPosition = document.getElementById("cursor-position");
 
-      // auto-save with fetch
-      let timeout;
-      ta.addEventListener("input", () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(async () => {
-          try {
-            await fetch("/board/save", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text: ta.value }),
-            });
-          } catch (err) {
-            console.error("Error saving board:", err);
-          }
-        }, 1000);
-      });
+      // Text input elements
+      const textInputContainer = document.getElementById(
+        "text-input-container"
+      );
+      const textInput = document.getElementById("text-input");
+      const textConfirmBtn = document.getElementById("text-confirm");
+      const textCancelBtn = document.getElementById("text-cancel");
 
-      // clear button functionality
-      clearBtn.addEventListener("click", async () => {
-        ta.value = ""; // clear textarea
-        ta.style.height = "auto"; // reset height
-        ta.style.height = ta.scrollHeight + "px";
+      // Drawing state
+      let drawing = false;
+      let currentTool = "pen";
+      let currentColor = "#ffffff";
+      let boardColor = getComputedStyle(document.documentElement)
+        .getPropertyValue("--board")
+        .trim();
+      let brushSize = 3;
+      let laserDuration = 2.0; // seconds
+      let laserIntensity = 2; // 1: low, 2: normal, 3: high
+      let startX, startY;
+      let lastX, lastY;
+      let snapshots = [];
+      let redoStack = [];
+      let laserPaths = [];
+      let textElements = [];
+      let shapes = [];
+      let paths = [];
+      let currentPath = null;
+      let currentLaserPath = null;
+      let lastLaserUpdate = 0;
+      let lastMousePos = { x: 0, y: 0 };
+      let mouseMoved = false;
 
-        // save immediately
-        try {
-          await fetch("/board/save", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: "" }),
-          });
-        } catch (err) {
-          console.error("Error saving board:", err);
+      // Initialize canvas
+      function initCanvas() {
+        const container = canvas.parentElement;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        canvas.width = width;
+        canvas.height = height;
+        tempCanvas.width = width;
+        tempCanvas.height = height;
+
+        // Set background color from CSS variable
+        boardColor = getComputedStyle(document.documentElement)
+          .getPropertyValue("--board")
+          .trim();
+        ctx.fillStyle = boardColor;
+        ctx.fillRect(0, 0, width, height);
+
+        tempCtx.fillStyle = boardColor;
+        tempCtx.fillRect(0, 0, width, height);
+
+        // Update display
+        document.getElementById(
+          "canvas-size"
+        ).textContent = `${width} × ${height}`;
+        console.log("Canvas initialized:", width, "x", height);
+      }
+
+      // Update cursor position display
+      function updateCursorPosition(x, y) {
+        cursorPosition.textContent = `X: ${Math.round(x)}, Y: ${Math.round(y)}`;
+      }
+
+      // Update cursor style based on tool
+      function updateCursor() {
+        canvas.classList.remove(
+          "cursor-pen",
+          "cursor-laser",
+          "cursor-eraser",
+          "cursor-shape",
+          "cursor-text"
+        );
+
+        switch (currentTool) {
+          case "pen":
+            canvas.classList.add("cursor-pen");
+            break;
+          case "laser":
+            canvas.classList.add("cursor-laser");
+            break;
+          case "eraser":
+            canvas.classList.add("cursor-eraser");
+            break;
+          case "text":
+            canvas.classList.add("cursor-text");
+            break;
+          default:
+            canvas.classList.add("cursor-shape");
+        }
+      }
+
+      // Laser particle system for smooth laser effect
+      class LaserParticle {
+        constructor(x, y, color, size, intensity) {
+          this.x = x;
+          this.y = y;
+          this.color = color;
+          this.size = size * (0.8 + Math.random() * 0.4);
+          this.created = Date.now();
+          this.life = laserDuration * 1000;
+          this.alive = true;
+          this.intensity = intensity;
+          this.vx = (Math.random() - 0.5) * 0.5;
+          this.vy = (Math.random() - 0.5) * 0.5;
         }
 
-        ta.focus(); // keep textarea active
+        update() {
+          const now = Date.now();
+          const age = now - this.created;
+
+          if (age > this.life) {
+            this.alive = false;
+            return false;
+          }
+
+          this.opacity = 1 - (age / this.life) ** 2;
+          this.x += this.vx;
+          this.y += this.vy;
+          return true;
+        }
+
+        draw(ctx) {
+          if (!this.alive) return;
+
+          ctx.save();
+          ctx.globalAlpha = this.opacity * (this.intensity / 3);
+
+          // Create glow effect
+          const gradient = ctx.createRadialGradient(
+            this.x,
+            this.y,
+            0,
+            this.x,
+            this.y,
+            this.size * 2
+          );
+          gradient.addColorStop(0, this.color);
+          gradient.addColorStop(1, this.color + "00");
+
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Inner bright spot
+          ctx.globalAlpha = this.opacity;
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+        }
+      }
+
+      class LaserTrail {
+        constructor(color, width, intensity) {
+          this.particles = [];
+          this.color = color;
+          this.width = width;
+          this.intensity = intensity;
+          this.created = Date.now();
+          this.points = [];
+        }
+
+        addPoint(x, y) {
+          this.points.push({ x, y, time: Date.now() });
+
+          // Add particles along the line
+          if (this.points.length > 1) {
+            const lastPoint = this.points[this.points.length - 2];
+            const dx = x - lastPoint.x;
+            const dy = y - lastPoint.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const steps = Math.max(2, Math.floor(distance / 3));
+
+            for (let i = 0; i <= steps; i++) {
+              const t = i / steps;
+              const px = lastPoint.x + dx * t;
+              const py = lastPoint.y + dy * t;
+
+              // Add multiple particles for intensity
+              for (let j = 0; j < this.intensity; j++) {
+                this.particles.push(
+                  new LaserParticle(
+                    px + (Math.random() - 0.5) * this.width * 0.5,
+                    py + (Math.random() - 0.5) * this.width * 0.5,
+                    this.color,
+                    this.width,
+                    this.intensity
+                  )
+                );
+              }
+            }
+          }
+        }
+
+        update() {
+          // Update all particles
+          this.particles = this.particles.filter((p) => p.update());
+
+          // Remove old points
+          const now = Date.now();
+          this.points = this.points.filter(
+            (p) => now - p.time < laserDuration * 1000
+          );
+
+          return this.particles.length > 0 || this.points.length > 0;
+        }
+
+        draw(ctx) {
+          // Draw smooth trail
+          if (this.points.length >= 2) {
+            ctx.save();
+
+            // Create gradient for the trail
+            const gradient = ctx.createLinearGradient(
+              this.points[0].x,
+              this.points[0].y,
+              this.points[this.points.length - 1].x,
+              this.points[this.points.length - 1].y
+            );
+            gradient.addColorStop(0, this.color + "cc");
+            gradient.addColorStop(0.5, this.color);
+            gradient.addColorStop(1, this.color + "cc");
+
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = this.width * 1.5;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.globalAlpha = 0.7;
+
+            // Add glow effect
+            ctx.shadowBlur = 15 * this.intensity;
+            ctx.shadowColor = this.color;
+
+            // Draw smooth curve through points
+            ctx.beginPath();
+            ctx.moveTo(this.points[0].x, this.points[0].y);
+
+            for (let i = 1; i < this.points.length; i++) {
+              const prev = this.points[i - 1];
+              const curr = this.points[i];
+              const midX = (prev.x + curr.x) / 2;
+              const midY = (prev.y + curr.y) / 2;
+
+              ctx.quadraticCurveTo(prev.x, prev.y, midX, midY);
+            }
+
+            if (this.points.length > 1) {
+              const last = this.points[this.points.length - 1];
+              ctx.lineTo(last.x, last.y);
+            }
+
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          // Draw particles
+          this.particles.forEach((p) => p.draw(ctx));
+        }
+      }
+
+      // Redraw all elements
+      function redrawCanvas() {
+        // Clear and set background color
+        boardColor = getComputedStyle(document.documentElement)
+          .getPropertyValue("--board")
+          .trim();
+        ctx.fillStyle = boardColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw shapes
+        shapes.forEach((shape) => {
+          ctx.strokeStyle = shape.color;
+          ctx.lineWidth = shape.lineWidth;
+          ctx.fillStyle = shape.fillStyle || "transparent";
+
+          if (shape.type === "rect") {
+            ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+            if (shape.fillStyle && shape.fillStyle !== "transparent") {
+              ctx.fillRect(shape.x, shape.y, shape.width, shape.height);
+            }
+          } else if (shape.type === "circle") {
+            ctx.beginPath();
+            ctx.arc(shape.cx, shape.cy, shape.radius, 0, Math.PI * 2);
+            ctx.stroke();
+            if (shape.fillStyle && shape.fillStyle !== "transparent") {
+              ctx.fill();
+            }
+          } else if (shape.type === "triangle") {
+            ctx.beginPath();
+            ctx.moveTo(shape.points[0].x, shape.points[0].y);
+            ctx.lineTo(shape.points[1].x, shape.points[1].y);
+            ctx.lineTo(shape.points[2].x, shape.points[2].y);
+            ctx.closePath();
+            ctx.stroke();
+            if (shape.fillStyle && shape.fillStyle !== "transparent") {
+              ctx.fill();
+            }
+          } else if (shape.type === "line") {
+            ctx.beginPath();
+            ctx.moveTo(shape.x1, shape.y1);
+            ctx.lineTo(shape.x2, shape.y2);
+            ctx.stroke();
+          }
+        });
+
+        // Draw paths
+        paths.forEach((path) => {
+          if (path.points.length < 2) return;
+
+          ctx.strokeStyle = path.color;
+          ctx.lineWidth = path.lineWidth;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+
+          ctx.beginPath();
+          ctx.moveTo(path.points[0].x, path.points[0].y);
+
+          for (let i = 1; i < path.points.length; i++) {
+            ctx.lineTo(path.points[i].x, path.points[i].y);
+          }
+
+          ctx.stroke();
+        });
+
+        // Draw text elements
+        textElements.forEach((text) => {
+          ctx.fillStyle = text.color;
+          ctx.font = `${text.fontSize}px Arial`;
+          ctx.fillText(text.content, text.x, text.y);
+        });
+
+        // Draw laser trails
+        const now = Date.now();
+        if (now - lastLaserUpdate > 16) {
+          laserPaths = laserPaths.filter((l) => l.update());
+          lastLaserUpdate = now;
+        }
+
+        laserPaths.forEach((l) => l.draw(ctx));
+      }
+
+      // Save state for undo
+      function saveState() {
+        const state = {
+          paths: JSON.parse(JSON.stringify(paths)),
+          shapes: JSON.parse(JSON.stringify(shapes)),
+          textElements: JSON.parse(JSON.stringify(textElements)),
+        };
+        snapshots.push(state);
+        if (snapshots.length > 100) snapshots.shift();
+        redoStack = [];
+      }
+
+      // Undo function
+      function undo() {
+        if (snapshots.length <= 1) return;
+
+        redoStack.push({
+          paths: JSON.parse(JSON.stringify(paths)),
+          shapes: JSON.parse(JSON.stringify(shapes)),
+          textElements: JSON.parse(JSON.stringify(textElements)),
+        });
+
+        const lastState = snapshots.pop();
+        paths = lastState.paths || [];
+        shapes = lastState.shapes || [];
+        textElements = lastState.textElements || [];
+
+        redrawCanvas();
+      }
+
+      // Redo function
+      function redo() {
+        if (redoStack.length === 0) return;
+
+        const nextState = redoStack.pop();
+        saveState();
+        paths = nextState.paths || [];
+        shapes = nextState.shapes || [];
+        textElements = nextState.textElements || [];
+
+        redrawCanvas();
+      }
+
+      // Clear canvas
+      function clearCanvas() {
+        if (confirm("Are you sure you want to clear the entire board?")) {
+          saveState();
+          paths = [];
+          shapes = [];
+          textElements = [];
+          laserPaths = [];
+          redrawCanvas();
+        }
+      }
+
+      // Set active tool
+      function setActiveTool(tool) {
+        currentTool = tool;
+        activeToolName.textContent =
+          tool.charAt(0).toUpperCase() + tool.slice(1);
+
+        toolButtons.forEach((btn) => btn.classList.remove("tool-active"));
+        document.getElementById(`${tool}-tool`).classList.add("tool-active");
+
+        if (tool !== "text") {
+          textInputContainer.style.display = "none";
+        }
+
+        updateCursor();
+      }
+
+      // Set active color
+      function setActiveColor(color, element) {
+        currentColor = color;
+        activeColorDisplay.style.backgroundColor = color;
+
+        colorButtons.forEach((btn) => btn.classList.remove("color-active"));
+        element.classList.add("color-active");
+      }
+
+      // Set board color
+      function setBoardColor(color, element) {
+        boardColor = color;
+        // Don't change CSS variable, just update the drawing board
+        ctx.fillStyle = boardColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        boardColorButtons.forEach((btn) =>
+          btn.classList.remove("board-color-active")
+        );
+        element.classList.add("board-color-active");
+
+        redrawCanvas();
+      }
+
+      // Get mouse/touch position
+      function getMousePos(e) {
+        const rect = canvas.getBoundingClientRect();
+        let clientX, clientY;
+
+        if (e.type.includes("touch")) {
+          clientX = e.touches[0].clientX;
+          clientY = e.touches[0].clientY;
+        } else {
+          clientX = e.clientX;
+          clientY = e.clientY;
+        }
+
+        const pos = {
+          x: clientX - rect.left,
+          y: clientY - rect.top,
+        };
+
+        updateCursorPosition(pos.x, pos.y);
+        return pos;
+      }
+
+      // Start drawing
+      function startDrawing(e) {
+        e.preventDefault();
+        const pos = getMousePos(e);
+        startX = lastX = pos.x;
+        startY = lastY = pos.y;
+        lastMousePos = { x: pos.x, y: pos.y };
+        drawing = true;
+        mouseMoved = false;
+
+        document.getElementById("drawing-status").textContent = "Drawing...";
+
+        if (currentTool === "pen") {
+          currentPath = {
+            points: [{ x: pos.x, y: pos.y }],
+            color: currentColor,
+            lineWidth: brushSize,
+          };
+          paths.push(currentPath);
+        } else if (currentTool === "eraser") {
+          currentPath = {
+            points: [{ x: pos.x, y: pos.y }],
+            color: boardColor,
+            lineWidth: brushSize * 2,
+          };
+          paths.push(currentPath);
+        } else if (currentTool === "laser") {
+          currentLaserPath = new LaserTrail(
+            currentColor,
+            brushSize,
+            laserIntensity
+          );
+          currentLaserPath.addPoint(pos.x, pos.y);
+        } else if (currentTool === "text") {
+          textInputContainer.style.left = pos.x + "px";
+          textInputContainer.style.top = pos.y + "px";
+          textInputContainer.style.display = "block";
+          textInput.focus();
+          drawing = false;
+        }
+      }
+
+      // Drawing function
+      function draw(e) {
+        if (!drawing) return;
+        e.preventDefault();
+
+        const pos = getMousePos(e);
+        const dx = pos.x - lastMousePos.x;
+        const dy = pos.y - lastMousePos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 0.5 && currentTool !== "laser") return;
+
+        mouseMoved = true;
+        lastMousePos = { x: pos.x, y: pos.y };
+
+        // Clear temp canvas
+        tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+        if (currentTool === "pen" || currentTool === "eraser") {
+          if (currentPath) {
+            currentPath.points.push({ x: pos.x, y: pos.y });
+
+            // Draw on temp canvas for smooth preview
+            tempCtx.strokeStyle = currentPath.color;
+            tempCtx.lineWidth = currentPath.lineWidth;
+            tempCtx.lineCap = "round";
+            tempCtx.lineJoin = "round";
+
+            tempCtx.beginPath();
+            tempCtx.moveTo(lastX, lastY);
+            tempCtx.lineTo(pos.x, pos.y);
+            tempCtx.stroke();
+
+            // Redraw main canvas
+            redrawCanvas();
+            // Draw current path on top
+            ctx.strokeStyle = currentPath.color;
+            ctx.lineWidth = currentPath.lineWidth;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+          }
+        } else if (currentTool === "laser") {
+          if (currentLaserPath) {
+            currentLaserPath.addPoint(pos.x, pos.y);
+
+            // Clear temp canvas and draw laser preview
+            tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+            currentLaserPath.draw(tempCtx);
+          }
+        } else if (
+          ["rect", "circle", "triangle", "line"].includes(currentTool)
+        ) {
+          tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+          tempCtx.strokeStyle = currentColor;
+          tempCtx.lineWidth = brushSize;
+          tempCtx.fillStyle = "transparent";
+
+          if (currentTool === "rect") {
+            tempCtx.strokeRect(startX, startY, pos.x - startX, pos.y - startY);
+          } else if (currentTool === "circle") {
+            const radius = Math.sqrt(
+              Math.pow(pos.x - startX, 2) + Math.pow(pos.y - startY, 2)
+            );
+            tempCtx.beginPath();
+            tempCtx.arc(startX, startY, radius, 0, Math.PI * 2);
+            tempCtx.stroke();
+          } else if (currentTool === "triangle") {
+            tempCtx.beginPath();
+            tempCtx.moveTo(startX + (pos.x - startX) / 2, startY);
+            tempCtx.lineTo(startX, pos.y);
+            tempCtx.lineTo(pos.x, pos.y);
+            tempCtx.closePath();
+            tempCtx.stroke();
+          } else if (currentTool === "line") {
+            tempCtx.beginPath();
+            tempCtx.moveTo(startX, startY);
+            tempCtx.lineTo(pos.x, pos.y);
+            tempCtx.stroke();
+          }
+        }
+
+        lastX = pos.x;
+        lastY = pos.y;
+      }
+
+      // Stop drawing
+      function stopDrawing() {
+        if (!drawing) return;
+        drawing = false;
+
+        document.getElementById("drawing-status").textContent = "Ready";
+        const pos = { x: lastX, y: lastY };
+        tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+        if (["rect", "circle", "triangle", "line"].includes(currentTool)) {
+          if (mouseMoved) {
+            saveState();
+
+            if (currentTool === "rect") {
+              shapes.push({
+                type: "rect",
+                x: Math.min(startX, pos.x),
+                y: Math.min(startY, pos.y),
+                width: Math.abs(pos.x - startX),
+                height: Math.abs(pos.y - startY),
+                color: currentColor,
+                lineWidth: brushSize,
+                fillStyle: "transparent",
+              });
+            } else if (currentTool === "circle") {
+              const radius = Math.sqrt(
+                Math.pow(pos.x - startX, 2) + Math.pow(pos.y - startY, 2)
+              );
+              shapes.push({
+                type: "circle",
+                cx: startX,
+                cy: startY,
+                radius: radius,
+                color: currentColor,
+                lineWidth: brushSize,
+                fillStyle: "transparent",
+              });
+            } else if (currentTool === "triangle") {
+              shapes.push({
+                type: "triangle",
+                points: [
+                  { x: startX + (pos.x - startX) / 2, y: startY },
+                  { x: startX, y: pos.y },
+                  { x: pos.x, y: pos.y },
+                ],
+                color: currentColor,
+                lineWidth: brushSize,
+                fillStyle: "transparent",
+              });
+            } else if (currentTool === "line") {
+              shapes.push({
+                type: "line",
+                x1: startX,
+                y1: startY,
+                x2: pos.x,
+                y2: pos.y,
+                color: currentColor,
+                lineWidth: brushSize,
+              });
+            }
+
+            redrawCanvas();
+          }
+        } else if (currentTool === "laser") {
+          if (currentLaserPath && mouseMoved) {
+            laserPaths.push(currentLaserPath);
+            currentLaserPath = null;
+          }
+        } else if (currentTool === "pen" || currentTool === "eraser") {
+          if (currentPath && currentPath.points.length > 1 && mouseMoved) {
+            saveState();
+          }
+          currentPath = null;
+        }
+      }
+
+      // Add text
+      function addText() {
+        const text = textInput.value.trim();
+        if (text) {
+          saveState();
+
+          textElements.push({
+            content: text,
+            x: parseInt(textInputContainer.style.left),
+            y: parseInt(textInputContainer.style.top),
+            color: currentColor,
+            fontSize: brushSize * 4 + 12,
+          });
+
+          textInput.value = "";
+          textInputContainer.style.display = "none";
+          redrawCanvas();
+          setActiveTool("pen");
+        }
+      }
+
+      // Cancel text
+      function cancelText() {
+        textInput.value = "";
+        textInputContainer.style.display = "none";
+        setActiveTool("pen");
+      }
+
+      // Update laser settings display
+      function updateLaserSettingsDisplay() {
+        laserDurationValue.textContent = `${laserDuration}s`;
+
+        const intensityLabels = ["Low", "Normal", "High"];
+        laserIntensityValue.textContent =
+          intensityLabels[laserIntensity - 1] || "Normal";
+      }
+
+      // Initialize everything
+      function init() {
+        initCanvas();
+        saveState();
+        updateCursor();
+        updateLaserSettingsDisplay();
+
+        // Set initial active color (white for dark theme)
+        const whiteColorBtn = document.querySelector(
+          '.color-btn[data-color="#ffffff"]'
+        );
+        if (whiteColorBtn) {
+          setActiveColor(whiteColorBtn.dataset.color, whiteColorBtn);
+        }
+
+        // Set initial board color from CSS variable
+        const themeBoardColorBtn = document.querySelector("#board-color-dark");
+        if (themeBoardColorBtn) {
+          const boardColorValue = getComputedStyle(document.documentElement)
+            .getPropertyValue("--board")
+            .trim();
+          themeBoardColorBtn.style.backgroundColor = boardColorValue;
+          themeBoardColorBtn.dataset.color = boardColorValue;
+          setBoardColor(boardColorValue, themeBoardColorBtn);
+        }
+
+        brushSizeValue.textContent = `${brushSize}px`;
+
+        console.log("Professional drawing board initialized");
+      }
+
+      // Event Listeners
+      window.addEventListener("load", init);
+      window.addEventListener("resize", initCanvas);
+
+      // Mouse events
+      canvas.addEventListener("mousedown", startDrawing);
+      canvas.addEventListener("mousemove", (e) => {
+        const pos = getMousePos(e);
+        if (!drawing) updateCursorPosition(pos.x, pos.y);
+        draw(e);
+      });
+      canvas.addEventListener("mouseup", stopDrawing);
+      canvas.addEventListener("mouseout", stopDrawing);
+
+      // Touch events
+      canvas.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        startDrawing(e);
+      });
+      canvas.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        draw(e);
+      });
+      canvas.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        stopDrawing();
+      });
+
+      // Tool buttons
+      toolButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const tool = e.currentTarget.id.replace("-tool", "");
+          setActiveTool(tool);
+        });
+      });
+
+      // Color buttons
+      colorButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          setActiveColor(e.currentTarget.dataset.color, e.currentTarget);
+        });
+      });
+
+      // Board color buttons
+      boardColorButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          setBoardColor(e.currentTarget.dataset.color, e.currentTarget);
+        });
+      });
+
+      // Brush size
+      brushSizeSlider.addEventListener("input", (e) => {
+        brushSize = parseInt(e.target.value);
+        brushSizeValue.textContent = `${brushSize}px`;
+        updateCursor();
+      });
+
+      // Laser duration
+      laserDurationSlider.addEventListener("input", (e) => {
+        laserDuration = parseFloat(e.target.value);
+        updateLaserSettingsDisplay();
+      });
+
+      // Laser intensity
+      laserIntensitySlider.addEventListener("input", (e) => {
+        laserIntensity = parseInt(e.target.value);
+        updateLaserSettingsDisplay();
+      });
+
+      // Clear button
+      clearBtn.addEventListener("click", clearCanvas);
+
+      // Undo/Redo buttons
+      undoBtn.addEventListener("click", undo);
+      redoBtn.addEventListener("click", redo);
+
+      // Text buttons
+      textConfirmBtn.addEventListener("click", addText);
+      textCancelBtn.addEventListener("click", cancelText);
+
+      // Keyboard shortcuts
+      document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "z" && !e.shiftKey) {
+          e.preventDefault();
+          undo();
+        }
+        if (
+          ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "Z") ||
+          ((e.ctrlKey || e.metaKey) && e.key === "y")
+        ) {
+          e.preventDefault();
+          redo();
+        }
+        if (
+          e.key === "Escape" &&
+          textInputContainer.style.display === "block"
+        ) {
+          cancelText();
+        }
+        if (
+          e.key === "Enter" &&
+          textInputContainer.style.display === "block" &&
+          !e.ctrlKey
+        ) {
+          e.preventDefault();
+          addText();
+        }
+        // Quick tool selection with number keys
+        if (e.key >= "1" && e.key <= "8") {
+          const tools = [
+            "pen",
+            "laser",
+            "eraser",
+            "line",
+            "rect",
+            "circle",
+            "triangle",
+            "text",
+          ];
+          const index = parseInt(e.key) - 1;
+          if (tools[index]) {
+            setActiveTool(tools[index]);
+          }
+        }
+      });
+
+      // Animation loop for smooth laser effect
+      let animationId;
+      function animate() {
+        redrawCanvas();
+        animationId = requestAnimationFrame(animate);
+      }
+      animate();
+
+      // Cleanup on page unload
+      window.addEventListener("beforeunload", () => {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
       });
     </script>
   </body>

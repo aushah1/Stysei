@@ -7,59 +7,67 @@
         class="profile-img w-14 h-14 rounded-xl border-2 border-pink-300 object-cover"
         src="<%= user.profilePic %>"
         alt="" />
-      <h3 class="font-semibold text-lg"><%= user.name %></h3>
+      <h3 class="font-semibold text-lg text-dark"><%= user.name %></h3>
     </div>
 
     <!-- Dropdown -->
-    <form
-      class="full-info opacity-0 z-20 absolute mt-3 left-0 w-56 second-bg border border-white shadow-lg rounded-2xl p-5 flex flex-col items-center gap-3 transition-all duration-300 pointer-events-none"
-      action="/user/edit/<%=user._id%>"
-      enctype="multipart/form-data"
-      method="post">
-      <div class="edit w-full text-end cursor-pointer">✏️</div>
-      <div class="img flex flex-col items-center gap-2 justify-center">
-        <img
-          class="w-16 h-16 rounded-xl border-2 border-pink-300 object-cover"
-          src="<%= user.profilePic %>"
-          alt="" />
-        <input class="w-[76%] hidden text-sm" type="file" name="profilePic" />
-      </div>
+    <div
+      class="full-info flex flex-col items-center gap-5 opacity-0 z-20 absolute mt-3 left-0 w-56 second-bg border border-white shadow-lg rounded-2xl p-5 transition-all duration-300 pointer-events-none">
+      <form
+        class="flex flex-col items-center gap-3"
+        action="/user/edit/<%=user._id%>"
+        enctype="multipart/form-data"
+        method="post">
+        <div class="edit w-full text-end cursor-pointer">✏️</div>
+        <div class="img flex flex-col items-center gap-2 justify-center">
+          <img
+            class="w-16 h-16 rounded-xl border-2 border-pink-300 object-cover"
+            src="<%= user.profilePic %>"
+            alt="" />
+          <input class="w-[76%] hidden text-sm" type="file" name="profilePic" />
+        </div>
 
-      <div class="w-full h-[2px] border-bg rounded-full"></div>
+        <div class="w-full h-[2px] border-bg rounded-full"></div>
 
-      <div class="flex flex-col items-center w-full">
-        <span class="text-sm text-gray-500 flex items-center gap-1">
-          Name
-        </span>
+        <div class="flex flex-col items-center w-full">
+          <span class="text-sm text-gray-500 flex items-center gap-1">
+            Name
+          </span>
+          <input
+            class="text-center input w-full nav-div rounded-lg py-1 text-light font-medium"
+            type="text"
+            name="name"
+            disabled
+            value="<%= user.name.toUpperCase() %>" />
+        </div>
+
+        <div class="flex flex-col items-center w-full">
+          <span class="text-sm text-gray-500 flex items-center gap-1">
+            Bio
+          </span>
+          <input
+            class="w-full text-center input nav-div rounded-lg py-1 text-light font-medium"
+            type="text"
+            value="<%= user.bio %>"
+            name="bio"
+            disabled />
+        </div>
         <input
-          class="text-center input w-full nav-div rounded-lg py-1 text-dark font-medium"
-          type="text"
-          name="name"
-          disabled
-          value="<%= user.name.toUpperCase() %>" />
-      </div>
-
-      <div class="flex flex-col items-center w-full">
-        <span class="text-sm text-gray-500 flex items-center gap-1"> Bio </span>
-        <input
-          class="w-full text-center input nav-div rounded-lg py-1 text-dark font-medium"
-          type="text"
-          value="<%= user.bio %>"
-          name="bio"
-          disabled />
-      </div>
-      <input
-        class="update-btn hidden btn-bg cursor-pointer text-white py-2 px-6 rounded-xl shadow-mdhover:shadow-lg transition-all duration-200"
-        type="submit"
-        value="Update" />
-    </form>
+          class="update-btn hidden btn-bg cursor-pointer text-white py-2 px-6 rounded-xl shadow-mdhover:shadow-lg transition-all duration-200"
+          type="submit"
+          value="Update" />
+      </form>
+      <button class="logout-btn bg-red-500 px-6 py-1 rounded-xl text-black">
+        <a href="/logout">Logout</a>
+      </button>
+    </div>
   </div>
 
   <!-- Hamburger -->
   <button id="menuBtn" class="md:hidden text-3xl">☰</button>
 
   <!-- Desktop Links -->
-  <div class="hidden md:flex items-center gap-4">
+  <div class="hidden md:flex items-center gap-4 text-light">
     <a
       class="nav-div px-4 py-2 transition duration-300 ease-in-out font-semibold rounded-full"
       href="/home"
@@ -161,6 +169,8 @@
   const fileInput = document.querySelector('input[name="profilePic"]');
   const nameInput = document.querySelector('input[name="name"]');
   const bioInput = document.querySelector('input[name="bio"]');
+  const themeBtns = document.querySelectorAll(".theme");
+  const logoutBtn = document.querySelector(".logout-btn");
 
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -194,7 +204,8 @@
       "--first-bg": "#ffe6f2",
       "--second-bg": "#ffd9ec",
       "--home-div": "#fecadc",
-      "--text": "#fc82aa",
+      "--text-light": "#000000",
+      "--text-dark": "#fc82aa",
       "--border": "#f2a1c4",
       "--board": "#ffd7e3",
       "--check-box": "#fbcfe8",
@@ -210,7 +221,8 @@
       "--first-bg": "#e6ccb2",
       "--second-bg": "#ebd6c1",
       "--home-div": "#deab90",
-      "--text": "#582f0e",
+      "--text-dark": "#582f0e",
+      "--text-light": "#582f0e",
       "--border": "#582f0e",
       "--board": "#ffe9d7",
       "--check-box": "#f2cfb5",
@@ -226,7 +238,8 @@
       "--first-bg": "#151515",
       "--second-bg": "#111111",
       "--home-div": "#323232",
-      "--text": "#ffffff",
+      "--text-light": "#ffffff",
+      "--text-dark": "#ffffff",
       "--border": "#929292",
       "--board": "#515151",
       "--check-box": "#828282",
@@ -236,7 +249,6 @@
   };
 
   // APPLY THEME ON CLICK
-  const themeBtns = document.querySelectorAll(".theme");
 
   themeBtns.forEach((btn) => {
     btn.addEventListener("click", () => {

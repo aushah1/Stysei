@@ -47,6 +47,124 @@ body {
   --btn-bg: #694e3c;
 }
 
+.cursor-pen {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="white"/></svg>')
+      12 12,
+    auto;
+}
+
+.cursor-laser {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="red" opacity="0.8"/><circle cx="12" cy="12" r="8" fill="none" stroke="red" stroke-width="1" opacity="0.4" stroke-dasharray="2,2"/></svg>')
+      12 12,
+    auto;
+}
+
+.cursor-eraser {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="8" fill="white" stroke="%236b7280" stroke-width="1"/></svg>')
+      12 12,
+    auto;
+}
+
+.cursor-shape {
+  cursor: crosshair;
+}
+
+.cursor-text {
+  cursor: text;
+}
+
+#temp-canvas {
+  pointer-events: none;
+}
+
+/* Improved laser effect */
+.laser-glow {
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+/* Specific drawing board styles that don't conflict with global CSS */
+.tool-btn {
+  background: var(--home-div);
+  color: var(--text-dark);
+  border: 1px solid var(--border);
+}
+
+.tool-btn:hover {
+  background: var(--nav-div);
+  transform: scale(1.05);
+}
+
+.color-btn {
+  border: 1px solid var(--border);
+}
+
+.board-color-btn {
+  border: 1px solid var(--border);
+}
+
+.btn-primary {
+  background: var(--btn-bg);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+}
+
+.btn-primary:hover {
+  background: var(--nav-div-hover);
+  color: var(--text-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tool-active {
+  background: var(--btn-bg);
+  color: var(--text-dark);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+}
+
+.color-active {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px var(--border), 0 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.board-color-active {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px var(--border);
+}
+
+/* Canvas container styling */
+.canvas-container {
+  background-color: var(--board);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-track {
+  background: linear-gradient(to right, var(--border), var(--check-box));
+  border-radius: 10px;
+  height: 6px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  background: var(--text-dark);
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
 .input {
   border: 1px solid var(--check-box);
   outline: 1px solid var(--check-box);
@@ -102,8 +220,11 @@ body {
   box-shadow: 0 4px 20px rgba(255, 175, 205, 0.35);
 }
 
-.text {
-  color: var(--text);
+.text-light {
+  color: var(--text-light);
+}
+.text-dark {
+  color: var(--text-dark);
 }
 
 /* ------------------------------------------------ */
@@ -152,32 +273,70 @@ body {
   grid-auto-rows: 150px;
 }
 
-.layout div {
+.image-wrapper {
+  position: relative;
+  border-radius: 16px;
   background-position: center;
   background-size: cover;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(255, 150, 200, 0.2);
+  overflow: hidden;
 }
 
-/* Images */
-.layout div:nth-child(1) {
-  background-image: url("/images/img1.jpeg");
+/* Show edit button on hover */
+.image-wrapper:hover::after,
+.image-wrapper:hover .edit-btn {
+  opacity: 1;
 }
-.layout div:nth-child(2) {
-  background-image: url("/images/img2.jpeg");
+
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: 0.2s ease;
 }
-.layout div:nth-child(3) {
-  background-image: url("/images/img3.jpeg");
+
+/* icon wrapper */
+.edit-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
-.layout div:nth-child(4) {
-  background-image: url("/images/img4.jpeg");
-}
-.layout div:nth-child(5) {
-  background-image: url("/images/img5.jpeg");
+
+/* Desktop layout */
+@media (min-width: 40rem) {
+  .layout {
+    width: 70%;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 180px;
+  }
+
+  .layout .image-wrapper:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .layout .image-wrapper:nth-child(2) {
+    grid-column: span 3;
+  }
+  .layout .image-wrapper:nth-child(3) {
+    grid-column: span 3;
+  }
+  .layout .image-wrapper:nth-child(4) {
+    grid-column: span 2;
+  }
+  .layout .image-wrapper:nth-child(5) {
+    grid-column: span 3;
+  }
 }
 
 /* Desktop Grid */
-@media (min-width: 40rem) {
+/* @media (min-width: 40rem) {
   .layout {
     width: 70%;
     grid-template-columns: repeat(5, 1fr);
@@ -201,7 +360,7 @@ body {
   .layout div:nth-child(5) {
     grid-column: span 3;
   }
-}
+} */
 
 /* ------------------------------------------------ */
 /* INPUTS (remove arrows) */
@@ -241,4 +400,127 @@ footer {
 
 .text-light {
   color: var(--text-light);
+}
+.glass-effect {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.gradient-bg {
+  background: linear-gradient(
+    135deg,
+    var(--first-bg) 0%,
+    var(--second-bg) 100%
+  );
+}
+
+.btn-primary {
+  background: var(--btn-bg);
+  color: var(--text);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+}
+
+.btn-primary:hover {
+  background: var(--nav-div-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tool-active {
+  background: var(--btn-bg);
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+}
+
+.color-active {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px var(--border), 0 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.board-color-active {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px var(--border);
+}
+
+/* Custom cursor styles */
+.cursor-pen {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="white"/></svg>')
+      12 12,
+    auto;
+}
+
+.cursor-laser {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="red" opacity="0.8"/><circle cx="12" cy="12" r="8" fill="none" stroke="red" stroke-width="1" opacity="0.4" stroke-dasharray="2,2"/></svg>')
+      12 12,
+    auto;
+}
+
+.cursor-eraser {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="8" fill="white" stroke="%236b7280" stroke-width="1"/></svg>')
+      12 12,
+    auto;
+}
+
+.cursor-shape {
+  cursor: crosshair;
+}
+
+.cursor-text {
+  cursor: text;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-track {
+  background: linear-gradient(to right, var(--border), var(--check-box));
+  border-radius: 10px;
+  height: 6px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  background: var(--text);
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+#temp-canvas {
+  pointer-events: none;
+}
+
+.tool-btn {
+  background: var(--home-div);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.tool-btn:hover {
+  background: var(--nav-div);
+  transform: scale(1.05);
+}
+
+.color-btn {
+  border: 1px solid var(--border);
+}
+
+.board-color-btn {
+  border: 1px solid var(--border);
+}
+
+/* Improved laser effect */
+.laser-glow {
+  filter: drop-shadow(0 0 6px currentColor);
 }

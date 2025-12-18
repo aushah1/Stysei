@@ -74,6 +74,12 @@ app.post("/create", async (req, res) => {
 
 app.use(isLoggedin);
 
+//----------LOGOUT-------------------
+app.get("/logout", (req, res) => {
+  res.cookie("token", "");
+  res.redirect("/");
+});
+
 //------------USER------------
 
 app.post(
@@ -107,6 +113,26 @@ app.post(
 
 app.get("/home", isLoggedin, (req, res) => {
   res.render("home");
+});
+
+app.post("/update-image", upload.single("image"), async (req, res) => {
+  try {
+    const index = parseInt(req.body.index);
+    const userId = req.user._id;
+    const imageUrl = "/uploads/" + req.file.filename;
+
+    const user = await userModel.findById(userId);
+
+    if (!user) return res.json({ success: false });
+
+    user.images[index] = imageUrl;
+    await user.save();
+
+    res.json({ success: true, imageUrl });
+  } catch (err) {
+    console.error(err);
+    res.json({ success: false });
+  }
 });
 
 //-----------TASKS-----------------
