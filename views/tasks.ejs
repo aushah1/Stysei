@@ -7,11 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body class="text">
+  <body>
     <%- include("partials/navbar") %>
     <main class="first-bg md:p-8 p-4 min-h-[80vh]">
       <form
-        class="add my-10 flex justify-center gap-5 items-center w-[80%] mx-auto"
+        class="add my-10 text-dark flex justify-center gap-5 items-center w-[80%] mx-auto"
         action="/tasks/create"
         method="post">
         <div class="inputs flex flex-col gap-2 w-[80%]">
@@ -33,7 +33,7 @@
       </form>
 
       <div
-        class="schedule  home-div rounded-xl p-2 md:p-8 flex justify-start items-center flex-col gap-5 w-[98%] md:w-[80%] m-auto">
+        class="text-dark schedule home-div rounded-xl p-2 md:p-8 flex justify-start items-center flex-col gap-5 w-[98%] md:w-[80%] m-auto">
         <h2 class="text-5xl text-center font-bold">Daily Schedule</h2>
 
         <% tasks.forEach(task => {%>
@@ -56,7 +56,7 @@
           task.isCompleted ? "checked" : "" %>/>
           <img class="w-5 more cursor-pointer" src="/images/more.png" alt="" />
           <div
-            class="extra hidden z-20 py-2 px-3 flex flex-col justify-center items-center gap-2 bg-white rounded-xl absolute -bottom-20 right-6">
+            class="extra hidden text-black z-20 py-2 px-3 flex flex-col justify-center items-center gap-2 bg-white rounded-xl absolute -bottom-20 right-6">
             <h5
               id="<%= task._id %>"
               class="px-6 edit py-2 rounded-3xl hover-nav-div cursor-pointer">
@@ -103,8 +103,9 @@
       let deletes = document.querySelectorAll(".delete");
       let edits = document.querySelectorAll(".edit");
       moreBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          let parentBox = btn.closest(".box");
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          let parentBox = btn.closest(".task-box");
           let extra = parentBox.querySelector(".extra");
           extra.classList.toggle("hidden");
         });
@@ -132,7 +133,7 @@
       });
       edits.forEach((editBtn) => {
         editBtn.addEventListener("click", (event) => {
-          let parentBox = event.target.closest(".box");
+          let parentBox = event.target.closest(".task-box");
           let editBox = parentBox.querySelector(".edit-box");
 
           parentBox.querySelector(".extra").classList.add("hidden");
@@ -141,7 +142,7 @@
         });
       });
       document.addEventListener("click", (e) => {
-        let clickedInsideBox = e.target.closest(".box");
+        let clickedInsideBox = e.target.closest(".task-box");
 
         if (!clickedInsideBox) {
           document

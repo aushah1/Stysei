@@ -136,6 +136,18 @@ app.post("/update-image", upload.single("image"), async (req, res) => {
   }
 });
 
+app.get("/api/quote", async (req, res) => {
+  try {
+    const response = await fetch("https://zenquotes.io/api/random");
+    const data = await response.json();
+    res.json({
+      quote: data[0].q,
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch ZenQuote" });
+  }
+});
+
 //-----------TASKS-----------------
 
 app.get("/tasks", isLoggedin, async (req, res) => {

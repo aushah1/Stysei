@@ -67,7 +67,7 @@
   <button id="menuBtn" class="md:hidden text-3xl">☰</button>
 
   <!-- Desktop Links -->
-  <div class="hidden md:flex items-center gap-4 text-light">
+  <div class="hidden md:flex items-center gap-4 text-dark">
     <a
       class="nav-div px-4 py-2 transition duration-300 ease-in-out font-semibold rounded-full"
       href="/home"
@@ -179,8 +179,11 @@
 
   profile.addEventListener("click", (e) => {
     e.stopPropagation();
-    info.classList.toggle("opacity-0");
     info.classList.toggle("pointer-events-none");
+    info.classList.toggle("opacity-0");
+  });
+  info.addEventListener("click", (e) => {
+    e.stopPropagation();
   });
 
   editBtn.onclick = () => {

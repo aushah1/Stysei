@@ -7,13 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
+  <body class="text-dark">
     <%- include("partials/navbar") %>
 
     <div
       class="hero text-dark w-full flex justify-center items-center relative first-bg sm:h-[60vh] h-[50vh]">
-      <h1 class="w-[80%] text-center lg:text-8xl sm:text-5xl text-3xl">
-        Small steps , big dreams. Every minute counts!
+      <h1
+        id="quote"
+        class="w-[80%] text-center lg:text-7xl sm:text-5xl text-3xl">
+        <!-- Small steps , big dreams. Every minute counts! -->
       </h1>
       <img
         class="sm:w-10 w-8 absolute top-[70%] left-[5%] rotate-[20deg]"
@@ -123,7 +125,7 @@
       </div>
       <div class="calendar text-light home-div p-6 rounded-md w-full max-w-md">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-xl">Important Dates</h3>
+          <h3 class="text-3xl">Important Dates</h3>
           <button
             id="toggleForm"
             class="second-bg px-3 py-1 rounded-md text-sm">
@@ -149,7 +151,7 @@
           </button>
         </div>
 
-        <table class="w-full text-left border-collapse text-sm">
+        <table class="w-full text-left border-collapse text-lg">
           <thead>
             <tr class="border-b">
               <th class="py-2">Date</th>
@@ -236,7 +238,7 @@
       const totalTimeEl = document.getElementById("totalTime");
 
       // get saved total time (in ms)
-      let totalTime = parseInt(localStorage.getItem("totalTime")) || 0;
+      let totalTime = parseInt(sessionStorage.getItem("totalTime")) || 0;
 
       // start time of current session
       let lastTick = Date.now();
@@ -249,7 +251,7 @@
         totalTime += diff;
 
         // save continuously (this is the key fix)
-        localStorage.setItem("totalTime", totalTime);
+        sessionStorage.setItem("totalTime", totalTime);
 
         const totalSeconds = Math.floor(totalTime / 1000);
         const minutes = Math.floor(totalSeconds / 60);
@@ -305,6 +307,12 @@
       toggleBtn.addEventListener("click", () => {
         form.classList.toggle("hidden");
       });
+
+      fetch("http://localhost:3000/api/quote")
+        .then((res) => res.json())
+        .then((data) => {
+          document.querySelector("#quote").innerText = data.quote;
+        });
     </script>
   </body>
 </html>
