@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+    <%- include("partials/navbar") %>
+
+    <main class="min-h-[81vh] first-bg sm:p-6 p-3 text-dark">
+      <!-- Upload -->
+      <div class="flex justify-end mb-8">
+        <button
+          id="uploadBtn"
+          class="w-14 h-14 rounded-full div-bg flex items-center justify-center">
+          <img src="/images/plus.png" class="w-7 icon" />
+        </button>
+
+        <form
+          id="uploadForm"
+          action="/upload-audio"
+          method="POST"
+          enctype="multipart/form-data"
+          class="hidden">
+          <input type="text" name="name" />
+          <input type="file" name="audio" id="audioInput" accept="audio/*" />
+        </form>
+      </div>
+
+      <!-- Audios -->
+      <div class="flex flex-col gap-4 max-w-3xl mx-auto">
+        <div
+          class="flex items-center justify-between gap-4 div-bg p-4 rounded-xl shadow-sm">
+          <div class="flex flex-col gap-2 flex-1">
+            <p class="font-medium">Rain</p>
+            <audio
+              src="audio/rain.mp3
+            "
+              class="hidden audio"></audio>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button
+              class="playBtn w-9 h-9 rounded-full div-bg flex items-center justify-center">
+              ▶
+            </button>
+
+            <input type="range" class="progress flex-1" value="0" />
+
+            <span class="time text-xs opacity-60">0:00</span>
+          </div>
+        </div>
+        <% audios.forEach(audio => { %>
+        <div
+          class="flex items-center justify-between gap-4 div-bg p-4 rounded-xl shadow-sm">
+          <!-- Left -->
+          <div class="flex flex-col gap-2 flex-1">
+            <p class="font-medium"><%= audio.name %></p>
+            <audio src="/<%= audio.filePath %>" class="hidden audio"></audio>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button
+              class="playBtn w-9 h-9 rounded-full div-bg flex items-center justify-center">
+              ▶
+            </button>
+
+            <input type="range" class="progress flex-1" value="0" />
+
+            <span class="time text-xs opacity-60">0:00</span>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+
+    <%- include("partials/footer") %>
+
+    <script>
+      const uploadBtn = document.getElementById("uploadBtn");
+      const audioInput = document.getElementById("audioInput");
+      const uploadForm = document.getElementById("uploadForm");
+      const deletes = document.querySelectorAll(".delete");
+
+      uploadBtn.onclick = () => audioInput.click();
+      audioInput.onchange = () => uploadForm.submit();
+
+      deletes.forEach((del) => {
+        del.onclick = async () => {
+          if (confirm("Delete this audio?")) {
+            await fetch(`/audios-delete/${del.id}`, { method: "POST" });
+            location.reload();
+          }
+        };
+      });
+
+      // theme icon support
+      const isDark = localStorage.getItem("theme") === "dark";
+      document.querySelectorAll(".icon").forEach((i) => {
+        if (isDark) i.classList.add("invert");
+      });
+      document.querySelectorAll(".audio").forEach((audio, index) => {
+        const card = audio.closest(".div-bg");
+        const playBtn = card.querySelector(".playBtn");
+        const progress = card.querySelector(".progress");
+        const time = card.querySelector(".time");
+
+        playBtn.onclick = () => {
+          if (audio.paused) {
+            audio.play();
+            playBtn.textContent = "⏸";
+          } else {
+            audio.pause();
+            playBtn.textContent = "▶";
+          }
+        };
+
+        audio.ontimeupdate = () => {
+          progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+          time.textContent = Math.floor(audio.currentTime) + "s";
+        };
+
+        progress.oninput = () => {
+          audio.currentTime = (progress.value / 100) * audio.duration;
+        };
+      });
+    </script>
+  </body>
+</html>

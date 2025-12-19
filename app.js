@@ -13,6 +13,7 @@ const multer = require("multer");
 const fs = require("fs");
 const upload = require("./config/multerconfig");
 const isLoggedin = require("./middleware/isLoggedin");
+const audioModel = require("./models/audio");
 
 require("dotenv").config();
 const app = express();
@@ -249,6 +250,53 @@ app.post(
 app.post("/notes-delete/:id", async (req, res) => {
   let id = req.params.id;
   await notesModel.findOneAndDelete({ _id: id });
+  res.end();
+});
+
+// ------------AUDIO--------------------------
+app.get("/audios", isLoggedin, async (req, res) => {
+  const audios = await audioModel
+    .find({ userId: req.user._id })
+    .sort({ createdAt: -1 });
+
+  res.render("audios", { audios });
+});
+app.post(
+  "/upload-audio",
+  isLoggedin,
+  upload.single("audio"),
+  async (req, res) => {
+    try {
+      if (!req.file) return res.redirect("/audios");
+
+      const name = req.body.name
+        ? req.body.name
+        : req.file.originalname.split(".")[0];
+
+      await audioModel.create({
+        name,
+        filePath: "uploads/" + req.file.filename,
+        userId: req.user._id,
+      });
+
+      res.redirect("/audios");
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Audio upload failed");
+    }
+  }
+);
+app.post("/audios-delete/:id", isLoggedin, async (req, res) => {
+  const audio = await audioModel.findOne({ _id: req.params.id });
+
+  if (audio) {
+    const fullPath = path.join(__dirname, "public", audio.filePath);
+    if (fs.existsSync(fullPath)) {
+      fs.unlinkSync(fullPath);
+    }
+    await audio.deleteOne();
+  }
+
   res.end();
 });
 

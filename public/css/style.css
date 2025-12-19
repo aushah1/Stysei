@@ -22,12 +22,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text);
+  background: var(--text-dark);
   border-radius: 10px;
   cursor: pointer;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #fd2180;
+  background: var(--nav-div-hover);
 }
 
 :root {
@@ -476,8 +476,9 @@ footer {
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
-  background: transparent;
+  background: black;
   cursor: pointer;
+  border-radius: 20px;
 }
 
 input[type="range"]::-webkit-slider-track {
@@ -523,4 +524,20 @@ input[type="range"]::-webkit-slider-thumb {
 /* Improved laser effect */
 .laser-glow {
   filter: drop-shadow(0 0 6px currentColor);
+}
+
+.progress {
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: currentColor;
+  cursor: pointer;
 }
