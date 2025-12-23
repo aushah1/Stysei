@@ -58,7 +58,7 @@ app.post("/create", async (req, res) => {
   let { name, email, password } = req.body;
   let exsistingUser = await userModel.findOne({ email });
   if (exsistingUser) {
-    res.send("User already exists");
+    return res.send("User already exists");
   }
   bcrypt.genSalt(10, function (err, salt) {
     bcrypt.hash(password, salt, async function (err, hash) {

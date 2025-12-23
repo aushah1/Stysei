@@ -52,10 +52,21 @@
           name="password"
           placeholder="Password" />
         <input
+          id="signupBtn"
           class="mt-8 cursor-pointer px-5 py-2 text-light text-2xl btn-bg rounded-2xl"
           type="submit"
           value="Submit" />
       </form>
     </main>
+    <script>
+      const signupForm = document.querySelector(".signup");
+      const signupBtn = document.getElementById("signupBtn");
+
+      signupForm.addEventListener("submit", () => {
+        signupBtn.disabled = true;
+        signupBtn.value = "Signing up...";
+        signupBtn.classList.add("opacity-60", "cursor-not-allowed");
+      });
+    </script>
   </body>
 </html>
