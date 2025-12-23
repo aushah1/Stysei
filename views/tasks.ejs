@@ -35,8 +35,13 @@
       <div
         class="text-dark schedule home-div rounded-xl p-2 md:p-8 flex justify-start items-center flex-col gap-5 w-[98%] md:w-[80%] m-auto">
         <h2 class="text-5xl text-center font-bold">Daily Schedule</h2>
+        <% if (tasks.length === 0) { %>
 
-        <% tasks.forEach(task => {%>
+        <h3 class="text-xl">
+          No schedule yet. Plan your day and start focusing.
+        </h3>
+
+        <% } else { %> <% tasks.forEach(task => {%>
         <div
           class="task-box relative flex justify-between gap-3 items-center p-2 px-5 w-[98%] md:w-[90%] rounded-2xl border border-[#ffb6d9]">
           <div
@@ -93,7 +98,7 @@
             </form>
           </div>
         </div>
-        <% }); %>
+        <% }); %> <% } %>
       </div>
     </main>
     <%- include("partials/footer") %>

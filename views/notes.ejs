@@ -50,7 +50,11 @@
           <th class="border border-gray-400 p-2">Date</th>
         </tr>
 
-        <% notes.forEach((note, idx) => { %>
+        <% if (notes.length === 0) { %>
+
+        <h3 class="text-xl">No notes yet. Start writing your first idea.</h3>
+
+        <% } else { %> <% notes.forEach((note, idx) => { %>
         <tr class="text-dark">
           <td class="border border-gray-400 sm:px-2 px-0 py-2 text-center">
             <a href="/<%=note.filePath%>" target="_blank">
@@ -74,7 +78,7 @@
             <%= note.createdAt.toLocaleDateString() %>
           </td>
         </tr>
-        <% }) %>
+        <% }) %> <% } %>
       </table>
     </main>
 
