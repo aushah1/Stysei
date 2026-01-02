@@ -1,19 +1,29 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user");
 
-module.exports = async function isLoggedin(req, res, next) {
-  if (!req.cookies.token) {
-    return res.redirect("/");
-  } else {
-    try {
-      const data = jwt.verify(req.cookies.token, process.env.SECRET);
-      const fullUser = await userModel.findById(data._id).lean();
+module.exports = async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
 
-      req.user = fullUser;
-      res.locals.user = fullUser;
-      return next();
-    } catch (err) {
-      res.redirect("/");
+    if (!token) {
+      req.flash("error", "Please login first");
+      return res.redirect("/");
     }
+
+    const decoded = jwt.verify(token, process.env.SECRET);
+    const user = await userModel.findById(decoded._id);
+
+    if (!user) {
+      req.flash("error", "User not found");
+      return res.redirect("/");
+    }
+
+    req.user = user;
+    res.locals.user = user; // ⭐ THIS LINE FIXES EVERYTHING
+
+    next();
+  } catch (err) {
+    req.flash("error", "Session expired. Please login again");
+    return res.redirect("/");
   }
 };

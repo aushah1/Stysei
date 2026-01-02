@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -14,7 +15,7 @@ const upload = require("./config/multerconfig");
 const isLoggedin = require("./middleware/isLoggedin");
 const session = require("express-session");
 const flash = require("connect-flash");
-require("dotenv").config();
+const cloudinary = require("./config/cloudinary");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -127,26 +128,6 @@ app.get("/home", isLoggedin, (req, res) => {
   res.render("home");
 });
 
-app.post("/update-image", upload.single("image"), async (req, res) => {
-  try {
-    const index = parseInt(req.body.index);
-    const userId = req.user._id;
-    const imageUrl = "/uploads/" + req.file.filename;
-
-    const user = await userModel.findById(userId);
-
-    if (!user) return res.json({ success: false });
-
-    user.images[index] = imageUrl;
-    await user.save();
-
-    res.json({ success: true, imageUrl });
-  } catch (err) {
-    console.error(err);
-    res.json({ success: false });
-  }
-});
-
 app.get("/api/quote", async (req, res) => {
   try {
     const response = await fetch("https://zenquotes.io/api/random");
@@ -160,27 +141,44 @@ app.get("/api/quote", async (req, res) => {
 });
 
 // ------------------ USER EDIT ------------------
+
 app.post(
   "/user/edit/:id",
   isLoggedin,
   upload.single("profilePic"),
   async (req, res) => {
-    const { name, bio } = req.body;
+    try {
+      const { name, bio } = req.body;
 
-    if (!name?.trim()) {
-      req.flash("error", "Name cannot be empty");
-      return res.redirect(req.get("referer"));
+      if (!name?.trim()) {
+        req.flash("error", "Name cannot be empty");
+        return res.redirect(req.get("referer"));
+      }
+
+      let updateData = { name, bio };
+
+      if (req.file) {
+        const uploadResult = await new Promise((resolve, reject) => {
+          cloudinary.uploader
+            .upload_stream({ folder: "profile_pics" }, (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            })
+            .end(req.file.buffer);
+        });
+
+        updateData.profilePic = uploadResult.secure_url;
+      }
+
+      await userModel.findByIdAndUpdate(req.params.id, updateData);
+
+      req.flash("success", "Profile updated");
+      res.redirect(req.get("referer"));
+    } catch (err) {
+      console.error(err);
+      req.flash("error", "Something went wrong");
+      res.redirect(req.get("referer"));
     }
-
-    let updateData = { name, bio };
-
-    if (req.file) {
-      updateData.profilePic = `/uploads/${req.file.filename}`;
-    }
-
-    await userModel.findByIdAndUpdate(req.params.id, updateData);
-    req.flash("success", "Profile updated");
-    res.redirect(req.get("referer"));
   }
 );
 
