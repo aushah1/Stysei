@@ -1,5 +1,31 @@
+/* =========================================================
+   GOOGLE FONT
+========================================================= */
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
 
+/* =========================================================
+   CSS VARIABLES (COLORS ONLY)
+========================================================= */
+:root {
+  --nav: #ddb892;
+  --nav-div: #edc4b3;
+  --nav-div-hover: #fff6e8;
+  --div-bg: #f4bd9f;
+  --first-bg: #e6ccb2;
+  --second-bg: #ebd6c1;
+  --home-div: #deab90;
+  --text-light: #582f0e;
+  --text-dark: #ffcea6;
+  --border: #582f0e;
+  --board: #ffe9d7;
+  --check-box: #f2cfb5;
+  --checked-check-box: #582f0e;
+  --btn-bg: #694e3c;
+}
+
+/* =========================================================
+   RESET & BASE
+========================================================= */
 * {
   margin: 0;
   padding: 0;
@@ -13,6 +39,9 @@ body {
   font-family: "Caveat", cursive;
 }
 
+/* =========================================================
+   SCROLLBAR
+========================================================= */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -24,43 +53,96 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--text-dark);
   border-radius: 10px;
-  cursor: pointer;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--nav-div-hover);
 }
 
-:root {
-  --nav: #ddb892;
-  --nav-div: #edc4b3;
-  --nav-div-hover: #fff6e8;
-  --div-bg: #f4bd9f;
-  --first-bg: #e6ccb2;
-  --second-bg: #ebd6c1;
-  --home-div: #deab90;
-  --text-dark: #582f0e;
-  --text-light: #fafffb;
-  --border: #582f0e;
-  --board: #ffe9d7;
-  --check-box: #f2cfb5;
-  --checked-check-box: #582f0e;
-  --btn-bg: #694e3c;
+/* =========================================================
+   TEXT UTILITIES
+========================================================= */
+.text-light {
+  color: var(--text-light);
 }
 
+.text-dark {
+  color: var(--text-dark);
+}
+
+/* =========================================================
+   BUTTONS & INPUT INTERACTIONS
+========================================================= */
+button,
+input[type="submit"] {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+button:active,
+input[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+.input {
+  border: 1px solid var(--check-box);
+  outline: 1px solid var(--check-box);
+}
+
+.input:focus {
+  border-color: var(--border);
+  outline-color: var(--border);
+}
+
+/* =========================================================
+   RANGE INPUT
+========================================================= */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  height: 1px;
+  background: var(--text-dark);
+  border-radius: 20px;
+}
+
+input[type="range"]::-webkit-slider-track {
+  height: 6px;
+  border-radius: 10px;
+  background: linear-gradient(to right, var(--border), var(--check-box));
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--text-dark);
+  border-radius: 50%;
+  border: 2px solid var(--border);
+}
+
+/* =========================================================
+   CUSTOM CURSORS (ONCE)
+========================================================= */
 .cursor-pen {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="white"/></svg>')
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="6" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="white"/></svg>')
       12 12,
     auto;
 }
 
 .cursor-laser {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="red" opacity="0.8"/><circle cx="12" cy="12" r="8" fill="none" stroke="red" stroke-width="1" opacity="0.4" stroke-dasharray="2,2"/></svg>')
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="4" fill="red"/><circle cx="12" cy="12" r="8" fill="none" stroke="red" stroke-dasharray="2,2"/></svg>')
       12 12,
     auto;
 }
 
 .cursor-eraser {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="8" fill="white" stroke="%236b7280" stroke-width="1"/></svg>')
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><rect x="8" y="8" width="8" height="8" fill="white" stroke="%236b7280"/></svg>')
       12 12,
     auto;
 }
@@ -73,116 +155,11 @@ body {
   cursor: text;
 }
 
-#temp-canvas {
-  pointer-events: none;
-}
-
-/* Improved laser effect */
-.laser-glow {
-  filter: drop-shadow(0 0 6px currentColor);
-}
-
-/* Specific drawing board styles that don't conflict with global CSS */
-.tool-btn {
-  background: var(--home-div);
-  color: var(--text-dark);
-  border: 1px solid var(--border);
-}
-
-.tool-btn:hover {
-  background: var(--nav-div);
-  transform: scale(1.05);
-}
-
-.color-btn {
-  border: 1px solid var(--border);
-}
-
-.board-color-btn {
-  border: 1px solid var(--border);
-}
-
-.btn-primary {
-  background: var(--btn-bg);
-  color: var(--text-dark);
-  transition: all 0.3s ease;
-  border: 1px solid var(--border);
-}
-
-.btn-primary:hover {
-  background: var(--nav-div-hover);
-  color: var(--text-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-.tool-active {
-  background: var(--btn-bg);
-  color: var(--text-dark);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border);
-}
-
-.color-active {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 3px var(--border), 0 0 0 5px rgba(255, 255, 255, 0.3);
-}
-
-.board-color-active {
-  transform: scale(1.1);
-  box-shadow: 0 0 0 2px var(--border);
-}
-
-/* Canvas container styling */
-.canvas-container {
-  background-color: var(--board);
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-/* Range slider styling */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-input[type="range"]::-webkit-slider-track {
-  background: linear-gradient(to right, var(--border), var(--check-box));
-  border-radius: 10px;
-  height: 6px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 18px;
-  width: 18px;
-  background: var(--text-dark);
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-.input {
-  border: 1px solid var(--check-box);
-  outline: 1px solid var(--check-box);
-}
-
-.input:focus {
-  border: 1px solid var(--border);
-  outline: 1px solid var(--border);
-}
-
-/* ------------------------------------------------ */
-/* NAVIGATION */
-/* ------------------------------------------------ */
+/* =========================================================
+   BACKGROUNDS & SECTIONS
+========================================================= */
 .nav-bg {
   background: var(--nav);
-}
-.border-bg {
-  background-color: var(--border);
 }
 
 .nav-div {
@@ -193,77 +170,46 @@ input[type="range"]::-webkit-slider-thumb {
   background: var(--nav-div-hover);
 }
 
-.task-box {
-  border: 1px solid var(--border);
-  box-shadow: 0px 0px 10px var(--border);
-}
-
-/* ------------------------------------------------ */
-/* BACKGROUNDS */
-/* ------------------------------------------------ */
 .first-bg {
-  /* background: linear-gradient(135deg, #ffe6f2, #ffd9ec); */
-  background-color: var(--first-bg);
+  background: var(--first-bg);
 }
 
 .second-bg {
-  /* background: linear-gradient(135deg, #ffd9ec, #ffe6f2); */
-  background-color: var(--second-bg);
+  background: var(--second-bg);
 }
 
 .div-bg {
-  background-color: var(--div-bg);
+  background: var(--div-bg);
 }
 
 .home-div {
   background: var(--home-div);
-  box-shadow: 0 4px 20px rgba(255, 175, 205, 0.35);
 }
 
-.text-light {
-  color: var(--text-light);
-}
-.text-dark {
-  color: var(--text-dark);
+.board-div {
+  background: var(--board);
 }
 
-/* ------------------------------------------------ */
-/* CIRCLE CLOCK */
-/* ------------------------------------------------ */
+.btn-bg {
+  background: var(--btn-bg);
+}
+
+/* =========================================================
+   COMPONENTS
+========================================================= */
+.task-box {
+  border: 1px solid var(--border);
+  box-shadow: 0 0 10px var(--border);
+}
+
 .circle {
-  box-shadow: 0 4px 20px rgba(255, 150, 200, 0.3);
   border: 12px solid var(--border);
   border-radius: 50%;
 }
 
-/* ------------------------------------------------ */
-/* TIME SECTION */
-/* ------------------------------------------------ */
-.num {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(255, 150, 200, 0.5);
-}
-
-.time .hour,
-.time .min,
-.time .sec {
-  background: var(--home-div);
-  box-shadow: 0 4px 15px rgba(255, 140, 200, 0.25);
-  border-radius: 12px;
-}
-
-/* ------------------------------------------------ */
-/* ICON IMPROVEMENT */
-/* ------------------------------------------------ */
-.invert {
-  filter: brightness(0) saturate(100%) invert(20%) sepia(40%) saturate(300%)
-    hue-rotate(290deg) brightness(105%);
-}
-
-/* ------------------------------------------------ */
-/* PHOTO GRID */
-/* ------------------------------------------------ */
+/* =========================================================
+   PHOTO GRID
+========================================================= */
 .layout {
   width: 100%;
   margin: auto;
@@ -333,211 +279,4 @@ input[type="range"]::-webkit-slider-thumb {
   .layout .image-wrapper:nth-child(5) {
     grid-column: span 3;
   }
-}
-
-/* Desktop Grid */
-/* @media (min-width: 40rem) {
-  .layout {
-    width: 70%;
-    grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: 180px;
-  }
-
-  .layout div:nth-child(1) {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  .layout div:nth-child(2) {
-    grid-column: span 3;
-  }
-  .layout div:nth-child(3) {
-    grid-column: span 3;
-  }
-  .layout div:nth-child(4) {
-    grid-column: span 2;
-  }
-  .layout div:nth-child(5) {
-    grid-column: span 3;
-  }
-} */
-
-/* ------------------------------------------------ */
-/* INPUTS (remove arrows) */
-/* ------------------------------------------------ */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0;
-}
-
-/* ------------------------------------------------ */
-/* FOOTER */
-/* ------------------------------------------------ */
-footer {
-  background: var(--nav);
-  color: var(--text);
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.btn-bg {
-  background-color: var(--btn-bg);
-}
-
-.check-box {
-  background-color: var(--check-box);
-}
-
-.checked-check-box:checked {
-  background-color: var(--checked-check-box);
-}
-
-.board-div {
-  background-color: var(--board);
-}
-
-.text-light {
-  color: var(--text-light);
-}
-.glass-effect {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-}
-
-.gradient-bg {
-  background: linear-gradient(
-    135deg,
-    var(--first-bg) 0%,
-    var(--second-bg) 100%
-  );
-}
-
-.btn-primary {
-  background: var(--btn-bg);
-  color: var(--text);
-  transition: all 0.3s ease;
-  border: 1px solid var(--border);
-}
-
-.btn-primary:hover {
-  background: var(--nav-div-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-.tool-active {
-  background: var(--btn-bg);
-  color: var(--text);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border);
-}
-
-.color-active {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 3px var(--border), 0 0 0 5px rgba(255, 255, 255, 0.3);
-}
-
-.board-color-active {
-  transform: scale(1.1);
-  box-shadow: 0 0 0 2px var(--border);
-}
-
-/* Custom cursor styles */
-.cursor-pen {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="white"/></svg>')
-      12 12,
-    auto;
-}
-
-.cursor-laser {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="red" opacity="0.8"/><circle cx="12" cy="12" r="8" fill="none" stroke="red" stroke-width="1" opacity="0.4" stroke-dasharray="2,2"/></svg>')
-      12 12,
-    auto;
-}
-
-.cursor-eraser {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="8" fill="white" stroke="%236b7280" stroke-width="1"/></svg>')
-      12 12,
-    auto;
-}
-
-.cursor-shape {
-  cursor: crosshair;
-}
-
-.cursor-text {
-  cursor: text;
-}
-
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: black;
-  cursor: pointer;
-  border-radius: 20px;
-}
-
-input[type="range"]::-webkit-slider-track {
-  background: linear-gradient(to right, var(--border), var(--check-box));
-  border-radius: 10px;
-  height: 6px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 18px;
-  width: 18px;
-  background: var(--text);
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-#temp-canvas {
-  pointer-events: none;
-}
-
-.tool-btn {
-  background: var(--home-div);
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-
-.tool-btn:hover {
-  background: var(--nav-div);
-  transform: scale(1.05);
-}
-
-.color-btn {
-  border: 1px solid var(--border);
-}
-
-.board-color-btn {
-  border: 1px solid var(--border);
-}
-
-/* Improved laser effect */
-.laser-glow {
-  filter: drop-shadow(0 0 6px currentColor);
-}
-
-.progress {
-  -webkit-appearance: none;
-  height: 4px;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.progress::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: currentColor;
-  cursor: pointer;
 }

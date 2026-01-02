@@ -1,4 +1,4 @@
-<nav class="flex items-center justify-between px-6 py-4 nav-bg relative">
+<nav class="flex items-center justify-between px-6 py-4 nav-bg relative m-0">
   <!-- Profile -->
   <div class="relative">
     <div
@@ -170,6 +170,19 @@
     </div>
   </div>
 </nav>
+<% if (error && error.length) { %>
+<div
+  id="flash-error"
+  class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-red-500 text-white px-5 py-3 rounded-xl shadow-lg">
+  <%= error[0] %>
+</div>
+<% } %> <% if (success && success.length) { %>
+<div
+  id="flash-success"
+  class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-green-500 text-white px-5 py-3 rounded-xl shadow-lg">
+  <%= success[0] %>
+</div>
+<% } %>
 
 <script>
   const btn = document.getElementById("menuBtn");
@@ -219,8 +232,8 @@
       "--first-bg": "#ffe6f2",
       "--second-bg": "#ffd9ec",
       "--home-div": "#fecadc",
-      "--text-light": "#000000",
-      "--text-dark": "#fc82aa",
+      "--text-dark": "#c2174f",
+      "--text-light": "#fc82aa",
       "--border": "#f2a1c4",
       "--board": "#ffd7e3",
       "--check-box": "#fbcfe8",
@@ -237,7 +250,7 @@
       "--second-bg": "#ebd6c1",
       "--home-div": "#deab90",
       "--text-dark": "#582f0e",
-      "--text-light": "#582f0e",
+      "--text-light": "#ffcea6",
       "--border": "#582f0e",
       "--board": "#ffe9d7",
       "--check-box": "#f2cfb5",
@@ -289,4 +302,8 @@
       document.documentElement.style.setProperty(key, selectedTheme[key]);
     }
   }
+  setTimeout(() => {
+    document.getElementById("flash-error")?.remove();
+    document.getElementById("flash-success")?.remove();
+  }, 3000);
 </script>

@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body class="text">
+    <% if (error && error.length) { %>
+    <div
+      id="flash-error"
+      class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-red-500 text-white px-5 py-3 rounded-xl shadow-lg">
+      <%= error[0] %>
+    </div>
+    <% } %> <% if (success && success.length) { %>
+    <div
+      id="flash-success"
+      class="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-green-500 text-white px-5 py-3 rounded-xl shadow-lg">
+      <%= success[0] %>
+    </div>
+    <% } %>
     <main
       class="flex first-bg min-h-screen md:flex-row flex-col justify-center items-center md:gap-24 lg:p-20 gap-8 p-10">
       <form
@@ -27,7 +40,7 @@
           name="password"
           placeholder="Password" />
         <input
-          class="mt-8 cursor-pointer px-5 py-2 text-2xl text-light btn-bg rounded-2xl"
+          class="mt-8 cursor-pointer px-5 py-2 text-2xl text-dark btn-bg rounded-2xl"
           type="submit"
           value="Submit" />
       </form>
@@ -53,7 +66,7 @@
           placeholder="Password" />
         <input
           id="signupBtn"
-          class="mt-8 cursor-pointer px-5 py-2 text-light text-2xl btn-bg rounded-2xl"
+          class="mt-8 cursor-pointer px-5 py-2 text-dark text-2xl btn-bg rounded-2xl"
           type="submit"
           value="Submit" />
       </form>
@@ -67,6 +80,10 @@
         signupBtn.value = "Signing up...";
         signupBtn.classList.add("opacity-60", "cursor-not-allowed");
       });
+      setTimeout(() => {
+        document.getElementById("flash-error")?.remove();
+        document.getElementById("flash-success")?.remove();
+      }, 3000);
     </script>
   </body>
 </html>
